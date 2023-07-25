@@ -13,7 +13,12 @@ butoane = Buton_meniu.objects.all()
 
 
 # Preluarea datei
-data = datetime.datetime.now().date
+data = datetime.date.today()
+year = datetime.date.today().year
+# month = str(datetime.date.today().strftime('%B'))
+month = datetime.date.today().month
+day = str(datetime.date.today().day).zfill(2)
+
 
 
 
@@ -28,6 +33,10 @@ CONTEXT_GLOBAL = {
         "request": request,
         "butoane": butoane,
         "data": data,
+        "data_now": data,
+        "year_now": year,
+        "month_now": month,
+        "day_now": day,
         "contracte": contracte,
     }
 
@@ -116,7 +125,6 @@ def view_client_details(request, slug=None):
         "produs": get_object_or_404(Produs, slug=slug) ,
         "preturi": PretProdus.objects.all(),
         }
-        
     else: 
         context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)

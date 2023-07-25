@@ -9,14 +9,14 @@
     <div class="detalii_produs">
         <table>
             
-            <th style='color:{{produs.status_color}}; font-size: x-large; margin: 15px; width:250px'>
+            <th style=' font-size: large; margin: 15px; width:250px'>
                 <h4>{{produs}}</h4>
                 <h4 >Status produs: </h4>
-                <b >{{produs.status}}</b> 
+                <h4 style='color:{{produs.status_color}}; border: 1px solid {{produs.status_color}}'>{{produs.status}}</h4> 
             </th>
             <th>
                 
-                <img src="/{{produs.poza}}" hight="250px" width="250px" alt="Poza produs">
+                <img src="/{{produs.poza}}" hight="300px" width="300px" alt="Poza produs">
             </th>
         </table>
     </div>
@@ -28,7 +28,7 @@
         <table>
             <tr>
                 <th>Denumire produs</th>
-                <th>{{produs}}</th>
+                <th>{{produs}} (COD:{{produs.cod_produs}})</th>
             </tr>
             <tr>
                 <th>Societatea /Persoana fizică</th>
@@ -39,11 +39,11 @@
                 <th><input type="number" id="cnp"></th>
             </tr>
             <tr>
-                <th>Adresa din CI</th>
+                <th>Adresa din CI /CUI</th>
                 <th><input type="text" id="adresa"></th>
             </tr>
             <tr>
-                <th>Adresa de livrare</th>
+                <th>Adresa de livrare produs</th>
                 <th><input type="text" id="adresa"></th>
             </tr>
             <tr>
@@ -53,6 +53,10 @@
             <tr>
                 <th>Mail</th>
                 <th><input type="email" id="email"></th>
+            </tr>
+            <tr>
+                <th>Incepand cu data</th>
+                <th><input type="date" name="data_start" id="data_start" default={{day_now}}.{{month_now}}.{{year_now}}></th>
             </tr>
             <tr>
                 <th>Perioada de inchiriere</th>
@@ -68,15 +72,20 @@
                     </select>
                 </th>
             </tr>
+            
             <tr>
                 <th>Garantie produs</th>
                 <th>{{produs.garantie}} Ron (returnare la recuperare)</th>
             </tr>
         </table>
-        <br>
-        <a href=" ">
-            <button type="submit"  style='width:150px; height:30px'>Genereaza contract</button>
-        </a>
+        <br><br><br>
+        <div>
+            <a href=" ">
+                <button type="submit"  style='width:150px; height:30px'>Genereaza contract</button>
+            </a>
+            <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
+        </div>
+        
         <br><br>
     </div>
     

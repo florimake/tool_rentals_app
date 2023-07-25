@@ -286,12 +286,12 @@ h2, h1, h3, h4{
 /* detalii_produs */
 
 .formular_client th {
-    width: 250px;
+    width: 300px;
     text-align: left;
     padding: 5px;
 }
 
 .formular_client input, .formular_client select, .formular_client span{
-    width: 250px;
+    width: 300px;
     text-align: center;
 } 
