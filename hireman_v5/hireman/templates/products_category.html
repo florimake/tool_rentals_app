@@ -1,0 +1,40 @@
+
+{% extends "main.html" %}
+{% load static %}
+
+{% block products_category %}
+
+
+    
+    <div class="products">
+        <h1> {{categoria}} ...</h1>
+        <h3>Mai jos sunt afisate toate gama de produsele din categoria <u>{{categoria}}</u>,<br> cu statusul disponibil sau nedisponibil</h3>
+        <h3>Alege unul dintre produsele de mai jos si continua pentru finalizarea comenzii.</h3>
+        
+        
+        <div class="produse">
+            {% for p in produse %}
+                <a href="../products/{{p.slug}}">
+                    <div class="produs">
+                        
+                            <div>
+                                
+                                    <img src = "../{{p.poza}}" alt="" class="produs_img">
+                                
+                            </div>
+                            <br>
+                            <div>
+                                <span>{{p.pret}} RON / zi, <b style='color:{{p.status_color}}'>{{p.status}}</b></span>
+                                <p><b>{{p}}</b></p>
+                            </div>
+                        
+                    </div>
+                </a>
+            {% endfor %}
+            
+        </div>
+
+    
+    </div>
+
+{% endblock products_category %}

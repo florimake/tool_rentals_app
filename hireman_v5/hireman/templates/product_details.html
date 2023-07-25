@@ -1,0 +1,106 @@
+{% extends "main.html" %}
+{% load static %}
+{% block product_details %}
+    
+<div class="product_details">
+    <h1>Detalii despre produs  ...</h1>
+    <h2>{{produs}}</h2>
+    <br>
+    <div class="caracteristici">
+        
+        <div class="stanga">
+            <h3 >Status produs: </h3>
+            <table>
+                <th style='color:{{produs.status_color}}; font-size: xx-large; margin: 5px; background: rgba(77, 100, 131, 0.13);'>
+                    <b >{{produs.status}}</b> 
+                </th>
+            </table>
+            <br><br><br><br><br><br>
+            <img src="/{{produs.poza}}" hight="500px" width="500px" alt="Poza produs">
+        </div>    
+        
+        <div class="dreapta">
+            
+            <br>
+            <div class="descriere">
+                <h4>Descriere:</h4>
+                <p>{{produs.descriere}}</p>
+            </div>
+            <br>
+            <div class="specificatii">
+                <h4>Specificatii:</h4>
+                {% for spec in specificatii %}
+                    <li>{{spec}}</li>
+                {% endfor %}
+            </div>
+            <h4>Preturi:</h4>
+            <table>
+                <tr>
+                    <th>o zi</th>
+                    <th>2 zile</th>
+                    <th>3 zile</th>
+                    <th>4 zile</th>
+                    <th>5 zile</th>
+                    <th>pe weekend</th>
+                    <th>o saptamana</th>
+                    <th>garantie</th>
+                </tr>
+                <tr>
+                    <th>{{produs.pret.pret_1}}</th>
+                    <th>{{produs.pret.pret_2}}</th>
+                    <th>{{produs.pret.pret_3}}</th>
+                    <th>{{produs.pret.pret_4}}</th>
+                    <th>{{produs.pret.pret_5}}</th>
+                    <th>{{produs.pret.pret_w}}</th>
+                    <th>{{produs.pret.pret_s}}</th>
+                    <th>{{produs.garantie}}</th>
+                </tr>
+                {% comment %} <tr>
+                    <th><input type="checkbox" name="pret_1" id="pret_1"></th> 
+                    <th><input type="checkbox" name="pret_2" id="pret_2"></th> 
+                    <th><input type="checkbox" name="pret_3" id="pret_3"></th> 
+                    <th><input type="checkbox" name="pret_4" id="pret_4"></th> 
+                    <th><input type="checkbox" name="pret_5" id="pret_5"></th> 
+                    <th><input type="checkbox" name="pret_w" id="pret_w"></th> 
+                    <th><input type="checkbox" name="pret_s" id="pret_s"></th> 
+                    <th></th>
+                </tr> {% endcomment %}
+            </table>
+            {% comment %} <p><b>Bifeaza perioada de inchiriere si treci la pasul urmator</b></p> {% endcomment %}
+            <br><br>
+            <p>Inchiriaza acest produs: <b>{{produs.nume}}</b></p>
+            <a href=" ">
+                <button type="button" style='width:120px; height:30px'>Pasul urmator</button>
+            </a>
+        </div>
+    </div>
+    
+    
+</div>
+    
+    {% comment %} <br><br>
+    <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock product_details %}
+

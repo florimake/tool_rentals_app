@@ -1,0 +1,152 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_w.css'%}" />
+    
+    
+    <title>Hireman</title>
+
+</head>
+
+
+<body>
+    
+    <div class="container_left">
+
+        <div id="clock">
+            {% comment %} <h2><span id="live_time"></span></h2> {% endcomment %}
+            <h2><span>{{data}}</span>
+                <br>
+                <span>Ora </span><span id="time"></span>
+            </h2>
+        </div>
+    
+        <div id="logo">
+            <div class="logo1">    
+                <img src='{% static "img/flo2.png" %}' alt="" sizes="" srcset="">
+            </div>
+        </div>
+        <span style='margin-top:5px'>S.C. SOCIETATE S.R.L</span>
+        <br><br>
+        {% comment %} <h1>Info panel</h1> {% endcomment %}
+        <h3>Contracte in derulare</h3>
+        <br>
+        {% for contract in contracte %}
+            <li>nr. {{contract}} din data 19.06.2023</li>          
+            <br>
+        {% endfor %}      
+<!-- 
+        <a class="admin_button" href="/admin">
+            <button type="button">Admin</button>
+        </a>
+         -->
+    </div>
+
+
+
+    <div class="container_center">
+        <div id="header" class="header">
+            {% for b in butoane %}
+            <ul>
+                <a href= /{{b}}>
+                    <button class="" type="button" > 
+                        {{b}}
+                    </button>
+                </a>
+            </ul>
+            {% endfor %}
+        </div>
+        
+        <div class="home">{% block home %}    
+            {% endblock home %}</div>
+
+        <div class="products">{% block products %}    
+            {% endblock products %}</div>
+
+        <div class="products_category">{% block products_category %}    
+            {% endblock products_category %}</div>
+
+        <div class="category">{% block category %}
+            {% endblock category %}</div>
+
+        <div class="product_details">{% block product_details %}    
+            {% endblock product_details %}</div>
+    </div>
+
+
+
+    <div class="container_right">
+        <titlu>
+            <ul>
+                <h2>Inchirieri utilaje casa si gradina</h2>
+                <li><p>Printare contract</p></li>
+                <li>Facturare</li>
+            </ul>
+        </titlu>
+
+        <br><br>
+        {% comment %} <h1>Info panel </h1> {% endcomment %}
+        {% comment %} <h3>Cele mai inchiriate luna asta:</h3> {% endcomment %}
+        <div class="most_popular">
+            <ul>
+                <img src="{% static 'media/Gaurire-si-demolare-poza-3_1.jpg' %}" alt="">
+                <span>Cate persoane au inchiriat</span>
+            </ul>
+            <br>
+            <ul>
+                <img src="{% static 'media/Betonare-si-compactare-poza-3.png' %}" alt="">
+                <span>18 de persoane au inchiriat</span>
+            </ul>
+            <br>
+            <ul>
+                <img src="{% static 'media\Gresie-si-faianta-poza-1.png' %}" alt="">
+                <span>15 de persoane au inchiriat</span>
+            </ul>
+        </div>
+        
+    </div>
+    
+
+
+
+
+
+
+
+</body>
+
+<script src="{% static 'script/main.js'%}"></script>
+<script>
+    
+
+{% comment %} var datetime = new Date(); {% endcomment %}
+{% comment %} console.log(datetime); {% endcomment %}
+{% comment %} document.getElementById("time").textContent = time; //it will print on html page {% endcomment %}
+{% comment %} function refreshTime() {
+    const timeDisplay = document.getElementById("time");
+    const dateString = new Date().toLocaleString();
+    const formattedString = dateString.replace(", ", " - ");
+    timeDisplay.textContent = formattedString;
+}
+setInterval(refreshTime, 1000); {% endcomment %}
+
+
+
+var live_time = document.getElementById('time');
+
+function time() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes();
+    var h = d.getHours();
+    live_time.textContent = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+}
+
+setInterval(time, 1000);
+</script>
+</html>
