@@ -107,3 +107,19 @@ def view_home(request):
     context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "home.html", context)
+
+def view_client_details(request, slug=None):
+
+    if slug != None:
+        pret = get_object_or_404(Produs, slug=slug).pret
+        context = {
+        "produs": get_object_or_404(Produs, slug=slug) ,
+        "preturi": PretProdus.objects.all(),
+        }
+        
+    else: 
+        context = {}
+    add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    
+    
+    return render(request, "client_details.html", context)

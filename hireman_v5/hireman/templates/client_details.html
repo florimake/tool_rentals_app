@@ -1,0 +1,112 @@
+{% extends "main.html" %}
+{% load static %}
+{% block client_details %}
+    
+<div class="client_details">
+    <h1>Detalii despre Client  ...</h1>
+    
+    <br>
+    <div class="detalii_produs">
+        <table>
+            
+            <th style='color:{{produs.status_color}}; font-size: x-large; margin: 15px; width:250px'>
+                <h4>{{produs}}</h4>
+                <h4 >Status produs: </h4>
+                <b >{{produs.status}}</b> 
+            </th>
+            <th>
+                
+                <img src="/{{produs.poza}}" hight="250px" width="250px" alt="Poza produs">
+            </th>
+        </table>
+    </div>
+        
+    <br>
+
+    <div class="formular_client">
+        <h4>Introdu datele clientului in formularul de mai jos:</h4>
+        <table>
+            <tr>
+                <th>Denumire produs</th>
+                <th>{{produs}}</th>
+            </tr>
+            <tr>
+                <th>Societatea /Persoana fizică</th>
+                <th><input type="text" id="nume"></th>
+            </tr>
+            <tr>
+                <th>CNP /CUI</th>
+                <th><input type="number" id="cnp"></th>
+            </tr>
+            <tr>
+                <th>Adresa din CI</th>
+                <th><input type="text" id="adresa"></th>
+            </tr>
+            <tr>
+                <th>Adresa de livrare</th>
+                <th><input type="text" id="adresa"></th>
+            </tr>
+            <tr>
+                <th>Telefon /mobil</th>
+                <th><input type="tel" name="tel" id="tel"></th>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <th><input type="email" id="email"></th>
+            </tr>
+            <tr>
+                <th>Perioada de inchiriere</th>
+                <th>
+                    <select name="cars" id="cars">
+                        <option value="{{produs.pret.pret_1}}"> o zi  -  pret {{produs.pret.pret_1}} Ron</option>
+                        <option value="{{produs.pret.pret_2}}"> 2 zile  -  pret {{produs.pret.pret_2}} Ron</option>
+                        <option value="{{produs.pret.pret_3}}"> 3 zile  - pret  {{produs.pret.pret_3}} Ron</option>
+                        <option value="{{produs.pret.pret_4}}"> 4 zile  -  pret {{produs.pret.pret_4}} Ron</option>
+                        <option value="{{produs.pret.pret_5}}"> 5 zile  -  pret {{produs.pret.pret_5}} Ron</option>
+                        <option value="{{produs.pret.pret_w}}"> weekend (2 zile) - pret {{produs.pret.pret_w}} Ron</option>
+                        <option value="{{produs.pret.pret_s}}"> o saptamana (7 zile) - pret {{produs.pret.pret_s}} Ron</option>
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>Garantie produs</th>
+                <th>{{produs.garantie}} Ron (returnare la recuperare)</th>
+            </tr>
+        </table>
+        <br>
+        <a href=" ">
+            <button type="submit"  style='width:150px; height:30px'>Genereaza contract</button>
+        </a>
+        <br><br>
+    </div>
+    
+
+    
+</div>
+    
+    {% comment %} <br><br>
+    <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock client_details %}
+

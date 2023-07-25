@@ -10,22 +10,22 @@
         
     
         <div class="produse">
-            {% for p in produse %}
-                <a href="{{p.slug}}">
+            {% for produs in produse %}
+                <a href="{{produs.slug}}">
                     <div class="produs">
                         <div>
-                            <img src = "../{{p.poza}}" alt="" class="produs_img">
+                            <img src = "../{{produs.poza}}" alt="" class="produs_img">
                             
                         </div>
                         <br>
                         <div>
-                            <span>{{p.pret}} RON / zi, <b style='color:{{p.status_color}}'>{{p.status}}</b></span>
-                            <p><b>{{p}}</b></p>
+                            <span>{{produs.pret}} RON / zi, <b style='color:{{produs.status_color}}'>{{produs.status}}</b></span>
+                            <p><b>{{produs}}</b></p>
                         </div>
+                        
                     </div>
                 </a>
                 
-
             {% endfor %}
             
         </div>

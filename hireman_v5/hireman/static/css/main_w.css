@@ -71,7 +71,7 @@ h2, h1, h3, h4{
     top: 0px;
 }
 
-.header button, .product_details button{
+.header button, .product_details button, .client_details button{
     width: 5vw;
     min-height: 30px;
     min-width: 150px;
@@ -85,17 +85,17 @@ h2, h1, h3, h4{
     font-style:unset;
 }
 
-.header button:hover, .product_details button:hover {
+.header button:hover, .product_details button:hover, .client_details button:hover {
     cursor: pointer;
     transform: scale(1.18) ; 
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.795);
     /* text-shadow: 0 0 5px rgba(82, 82, 82, 0.473); */
     transition: .12s;
     background-color: hsla(210, 1%, 52%, 0.87);
-    color: rgb(255, 190, 49);
+    color: rgb(255, 255, 255);
 }
 
-.header button:active, .product_details button:active {
+.header button:active, .product_details button:active, .client_details button:active {
     cursor: pointer;
     transform: scale(1.0);
     /* box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.769); */
@@ -199,8 +199,13 @@ h2, h1, h3, h4{
 
 .produse a, .itemuri a{
     text-decoration: none;
+    
 }
 
+.produse button:hover {
+    display: auto;
+
+}
 .item:hover, .produs:hover {
     cursor: pointer;
     transform: scale(1.18) ; /* rotate(-7deg) */
@@ -253,8 +258,8 @@ h2, h1, h3, h4{
     align-items: center;
     table-layout: fixed;
     padding: 10px;
-    background-color: rgba(77, 100, 131, 0.925);
-    color: #ffffff;
+    background-color: rgba(108, 133, 167, 0.24);
+    color: #030303;
 }
 
 .most_popular img{
@@ -262,4 +267,31 @@ h2, h1, h3, h4{
     height:170px;
 }
 
-/* client_details */
+.client_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formular_client table tr{
+    width: 250px;
+    /* border: 2px solid black; */
+    align-items: center;
+    table-layout: fixed;
+    padding: 10px;
+    background-color: rgba(130, 146, 168, 0.075);
+    color: #030303;
+}
+/* detalii_produs */
+
+.formular_client th {
+    width: 250px;
+    text-align: left;
+    padding: 5px;
+}
+
+.formular_client input, .formular_client select, .formular_client span{
+    width: 250px;
+    text-align: center;
+} 
