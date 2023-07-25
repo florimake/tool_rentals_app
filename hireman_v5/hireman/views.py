@@ -2,6 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.http import HttpResponse
 import datetime
+from django.shortcuts import render
+from django.utils import timezone
+from datetime import datetime as dt
+from datetime import timedelta
+
 
 # Create your views here.
 
@@ -10,7 +15,7 @@ import datetime
 butoane = Buton_meniu.objects.all() 
 # butoane_hardcodat = ["home", "category", "products", "details", "admin"]
 
-
+time_date=timezone.now()
 
 # Preluarea datei
 data = datetime.date.today()
@@ -125,9 +130,62 @@ def view_client_details(request, slug=None):
         "produs": get_object_or_404(Produs, slug=slug) ,
         "preturi": PretProdus.objects.all(),
         }
+        
     else: 
         context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
-    
-    
     return render(request, "client_details.html", context)
+
+# def view_contract_details(request):
+#     if request.method == 'POST':
+#             print(f"A primit request POST")
+#     context = {}
+#     add_first_to_second_dict(CONTEXT_GLOBAL,context)
+#     return render(request, "contract_details.html", context)
+
+def view_contract_details(request, slug=None):
+    if slug != None:
+        context = {}
+        if request.method == 'POST':
+            # print(f"A primit request POST")
+            r = request.POST
+            data_start = request.POST["data_start"]
+            date_end = time_date + timedelta(days=int(request.POST["pret"][-2::1]))
+            pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
+            # print(date_end.date())
+            # print(type(int(day)))
+            # print(pret_total)
+            context = {
+            "produs": get_object_or_404(Produs, slug=slug) ,
+            "preturi": PretProdus.objects.all(),
+            "forms":r.items(),
+            "nume": request.POST["nume"],
+            "cnp": request.POST["cnp"],
+            "adresa": request.POST["adresa"],
+            "telefon": request.POST["tel"],
+            "mail": request.POST["email"],
+            "data_start": f"{data_start[8:11]} - {data_start[5:7]} - {data_start[:4]}",
+            "data_end": f"{date_end.date().day} - {date_end.date().month} - {date_end.date().year}",
+            "pret": request.POST["pret"][0:-3:1],
+            "zile": request.POST["pret"][-2::1],
+            "total_plata" : pret_total
+            }
+            add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    else: 
+        context = {}
+        add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    return render(request, "contract_details.html", context)
+
+###################################################################
+# def index(request):
+#       return render(request, 'index.html')
+# def validate(request):
+#    if request.method == 'POST':
+#       username= request.POST["user"]
+#       password = request.POST["pass"]
+#       dict = {
+#          'username': username,
+#          'password': password
+#       }
+#       return render(request, 'validate.html', dict) 
+###################################################################

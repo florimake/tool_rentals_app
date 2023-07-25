@@ -25,66 +25,67 @@
 
     <div class="formular_client">
         <h4>Introdu datele clientului in formularul de mai jos:</h4>
-        <table>
-            <tr>
-                <th>Denumire produs</th>
-                <th>{{produs}} (COD:{{produs.cod_produs}})</th>
-            </tr>
-            <tr>
-                <th>Societatea /Persoana fizică</th>
-                <th><input type="text" id="nume"></th>
-            </tr>
-            <tr>
-                <th>CNP /CUI</th>
-                <th><input type="number" id="cnp"></th>
-            </tr>
-            <tr>
-                <th>Adresa din CI /CUI</th>
-                <th><input type="text" id="adresa"></th>
-            </tr>
-            <tr>
-                <th>Adresa de livrare produs</th>
-                <th><input type="text" id="adresa"></th>
-            </tr>
-            <tr>
-                <th>Telefon /mobil</th>
-                <th><input type="tel" name="tel" id="tel"></th>
-            </tr>
-            <tr>
-                <th>Mail</th>
-                <th><input type="email" id="email"></th>
-            </tr>
-            <tr>
-                <th>Incepand cu data</th>
-                <th><input type="date" name="data_start" id="data_start" default={{day_now}}.{{month_now}}.{{year_now}}></th>
-            </tr>
-            <tr>
-                <th>Perioada de inchiriere</th>
-                <th>
-                    <select name="cars" id="cars">
-                        <option value="{{produs.pret.pret_1}}"> o zi  -  pret {{produs.pret.pret_1}} Ron</option>
-                        <option value="{{produs.pret.pret_2}}"> 2 zile  -  pret {{produs.pret.pret_2}} Ron</option>
-                        <option value="{{produs.pret.pret_3}}"> 3 zile  - pret  {{produs.pret.pret_3}} Ron</option>
-                        <option value="{{produs.pret.pret_4}}"> 4 zile  -  pret {{produs.pret.pret_4}} Ron</option>
-                        <option value="{{produs.pret.pret_5}}"> 5 zile  -  pret {{produs.pret.pret_5}} Ron</option>
-                        <option value="{{produs.pret.pret_w}}"> weekend (2 zile) - pret {{produs.pret.pret_w}} Ron</option>
-                        <option value="{{produs.pret.pret_s}}"> o saptamana (7 zile) - pret {{produs.pret.pret_s}} Ron</option>
-                    </select>
-                </th>
-            </tr>
-            
-            <tr>
-                <th>Garantie produs</th>
-                <th>{{produs.garantie}} Ron (returnare la recuperare)</th>
-            </tr>
-        </table>
-        <br><br><br>
-        <div>
-            <a href=" ">
-                <button type="submit"  style='width:150px; height:30px'>Genereaza contract</button>
-            </a>
+
+        <form action="contract_details" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Denumire produs</th>
+                    <th>{{produs}} (COD:{{produs.cod_produs}})</th>
+                </tr>
+                <tr>
+                    <th>Societatea /Persoana fizică</th>
+                    <th><input type="text" name="nume"></th>
+                </tr>
+                <tr>
+                    <th>CNP /CUI</th>
+                    <th><input type="number" name="cnp"></th>
+                </tr>
+                <tr>
+                    <th>Adresa din CI /CUI</th>
+                    <th><input type="text" name="adresa"></th>
+                </tr>
+                <tr>
+                    <th>Adresa de livrare produs</th>
+                    <th><input type="text" name="adresa"></th>
+                </tr>
+                <tr>
+                    <th>Telefon /mobil</th>
+                    <th><input type="tel" name="tel" name="tel"></th>
+                </tr>
+                <tr>
+                    <th>Mail</th>
+                    <th><input type="email" name="email"></th>
+                </tr>
+                <tr>
+                    <th>Incepand cu data</th>
+                    <th><input type="date" name="data_start" name="data_start" default={{day_now}}.{{month_now}}.{{year_now}}></th>
+                </tr>
+                <tr>
+                    <th>Perioada de inchiriere</th>
+                    <th>
+                        <select name="pret">
+                            <option value="{{produs.pret.pret_1}}, 1"> o zi  -  pret {{produs.pret.pret_1}} Ron</option>
+                            <option value="{{produs.pret.pret_2}}, 2"> 2 zile  -  pret {{produs.pret.pret_2}} Ron</option>
+                            <option value="{{produs.pret.pret_3}}, 3"> 3 zile  - pret  {{produs.pret.pret_3}} Ron</option>
+                            <option value="{{produs.pret.pret_4}}, 4"> 4 zile  -  pret {{produs.pret.pret_4}} Ron</option>
+                            <option value="{{produs.pret.pret_5}}, 5"> 5 zile  -  pret {{produs.pret.pret_5}} Ron</option>
+                            <option value="{{produs.pret.pret_w}}, 2"> weekend (2 zile) - pret {{produs.pret.pret_w}} Ron</option>
+                            <option value="{{produs.pret.pret_s}}, 7"> o saptamana (7 zile) - pret {{produs.pret.pret_s}} Ron</option>
+                        </select>
+                    </th>
+                </tr>
+                
+                <tr>
+                    <th>Garantie produs</th>
+                    <th>{{produs.garantie}} Ron (returnare la recuperare)</th>
+                </tr>
+            </table>
+            <br><br>
+            <input class="button_client" type="submit" value="Submit contract">
             <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
-        </div>
+        </form>
+        
         
         <br><br>
     </div>

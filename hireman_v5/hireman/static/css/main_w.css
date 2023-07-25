@@ -295,3 +295,24 @@ h2, h1, h3, h4{
     width: 300px;
     text-align: center;
 } 
+
+.contract_details p{
+    display: flex;
+    flex-direction: row;
+}
+.tabel_anexa {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+.tabel_anexa_st th {
+    border: 1px solid black;
+    padding: 0px 10px;
+    width: 300;
+    margin: 20px;
+}
+.tabel_anexa_dr {
+    border: 1px solid black;
+    padding: 10px 10px;
+    margin: 0 50px;
+}
