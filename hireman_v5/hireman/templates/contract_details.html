@@ -19,7 +19,7 @@
             telefon <b>{{telefon}}</b>, mail <b>{{mail}}</b>, numit în continuare <b>BENEFICIAR</b>. 
         </span>
         <br><br>
-        <h4>TERMENI CONTRACTUALI .... <span style="font-style:unset; text-decoration: none"><a href="">Citeste mai mult</a></span></h4>
+        <h4>TERMENI CONTRACTUALI .... <span style="font-style:unset; text-decoration: none"><a href="termeni_contract">Citeste mai mult</a></span></h4>
         
         {% comment %} <b>Închiriere scule şi utilaje pentru construcţii.</b><br>
         <b>Obiectul contractului îl reprezintă următoarele scule şi utilaje.</b> {% endcomment %}
@@ -57,6 +57,10 @@
                         <th>{{produs.garantie}} Ron</th>
                     </tr>
                     <tr>
+                        <th>Adresa de livrare</th>
+                        <th>{{adresa_livrare}}</th>
+                    </tr>
+                    <tr>
                         <th>TOTAL de plata</th>
                         <th> {{total_plata}} Ron</th>
                     </tr>
@@ -90,24 +94,6 @@
     
     {% comment %} <br><br>
     <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

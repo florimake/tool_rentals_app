@@ -152,6 +152,8 @@ def view_contract_details(request, slug=None):
             data_start = request.POST["data_start"]
             date_end = time_date + timedelta(days=int(request.POST["pret"][-2::1]))
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
+            print((request.POST["pret"][-2::1]))
+            print(time_date, "#", date_end)
             # print(date_end.date())
             # print(type(int(day)))
             # print(pret_total)
@@ -162,6 +164,7 @@ def view_contract_details(request, slug=None):
             "nume": request.POST["nume"],
             "cnp": request.POST["cnp"],
             "adresa": request.POST["adresa"],
+            "adresa_livrare": request.POST["adresa_livrare"],
             "telefon": request.POST["tel"],
             "mail": request.POST["email"],
             "data_start": f"{data_start[8:11]} - {data_start[5:7]} - {data_start[:4]}",
@@ -189,3 +192,16 @@ def view_contract_details(request, slug=None):
 #       }
 #       return render(request, 'validate.html', dict) 
 ###################################################################
+
+def view_termeni_contract(request, slug=None):
+    if slug != None:
+        pret = get_object_or_404(Produs, slug=slug).pret
+        context = {
+        "produs": get_object_or_404(Produs, slug=slug) ,
+        "preturi": PretProdus.objects.all(),
+        }
+        
+    else: 
+        context = {}
+    add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    return render(request, "termeni_contract.html", context)

@@ -82,6 +82,9 @@
 
         <div class="contract_details">{% block contract_details %}    
             {% endblock contract_details %}</div>
+
+        <div class="termeni_contract">{% block termeni_contract %}    
+            {% endblock termeni_contract %}</div>
     </div>
 
 
@@ -151,6 +154,7 @@ function time() {
     var m = d.getMinutes();
     var h = d.getHours();
     live_time.textContent = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+    live_time.style.color = "red"
 }
 
 setInterval(time, 1000);
