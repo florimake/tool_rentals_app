@@ -1,8 +1,32 @@
 {% extends "main.html" %}
 {% load static %}
 {% block termeni_contract %}
-    
-<div id="titlu">
+<head>
+{% comment %}     
+
+    <style>
+        .titlu {
+            display: flex;
+            justify-content: center;
+            flex-direction:column;
+            align-items: center;
+        }
+
+        .termeni_contract_details div,
+        .termeni_contract_details h3 {
+            display: flex;
+            justify-content: center;
+            flex-direction:column;
+            font-size:.9em;
+            text-align: left;
+            align-items: left;
+            padding: 0px 10%
+        }
+    </style>
+
+     {% endcomment %}
+</head>
+<div class="titlu">
     <h1>Termeni CONTRACT  ...</h1>
     <span><b>Termeni si Conditii de Vanzare a Serviciilor Publice</b></span>
 </div>
@@ -10,12 +34,13 @@
 <div class="termeni_contract_details" style="padding:50px; text-align: center">
     
     <h3>Art.2. OBIECTUL CONTRACTULUI </h3>
-    <p>
+    <div>
         <b>2.1. Obiectul contractului</b> este închirierea bunului/bunurilor (scule şi/sau echipamente) astfel cum este/sunt descris/e în procesul verbal de predare 
         - primire anexat la prezentul contract; descriere ce trebuie să cuprindă următoarele caracteristici: starea bunului la predare şi accesoriile acestuia. 
         Prestatorul închiriază, iar beneficiarul utilizează şi plăteşte valoarea chiriei Prestatorului. 
-    </p>
-    <p><b>2.2.Predarea şi primirea bunului</b></p>
+    </div>
+    <br>
+    <h3>2.2.Predarea şi primirea bunului</h3>
     <div>
         <li>
             Perioada de închiriere începe cu ziua în care bunul a fost predat clientului şi consemnat în procesul verbal de predare - 
@@ -58,6 +83,7 @@
         </li>
         
     </div>
+    <br>
     <h3>Art.3 DURATA CONTRACTULUI</h3>
     <div>
         <p>3.1. Prezentul contract se încheie pe perioada specificată în Anexa ataşată acestuia. 
@@ -73,6 +99,7 @@
             completându-se cu această ocazie procesul verbal cu datele de predare - primire. În această situaţie Beneficiarul nu poate pretinde 
             Prestatorului restituirea sumei aferente perioadei în care nu a utilizat echipamentul. </p>
     </div>
+    <br>
     <h3>Art.4. PREŢUL ŞI PLATA </h3>
     <div>
         <p>4.1. Preţul total al contractului este stabilit prin anexe. Suma înscrisă în contract ca preţ nu include valoarea unor 
@@ -83,6 +110,7 @@
         <p>Plata închirierii / garanţiei se va face în avans, în lei la data emiterii facturii în numerar, card, virament bancar. 
             4.2. Pentru depăşirea termenului de plată, Beneficiarul va plăti penalităţi de întârziere de 0,5% pe zi, valoarea penalităţilor putând depăşi valoarea facturii.</p>
     </div>
+    <br>
     <h3>Art.5. GARANŢIA </h3>
     <div>
         <p>5.1. La închiriere, Prestatorul percepe o garanție Beneficiarului care va fi stabilită în funcție de valoarea contractului. 

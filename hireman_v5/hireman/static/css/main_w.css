@@ -326,10 +326,19 @@ h2, h1, h3, h4{
     margin: 0 50px;
 }
 
-.termeni_contract_details {
+.titlu {
     display: flex;
-    justify-content: left;
-    flex-direction:row;
+    justify-content: center;
+    flex-direction:column;
+    align-items: center;
+}
+.termeni_contract_details div,
+.termeni_contract_details h3 {
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
     font-size:.9em;
-    width: 90%;
+    text-align: left;
+    align-items: left;
+    padding: 0px 10%
 }
