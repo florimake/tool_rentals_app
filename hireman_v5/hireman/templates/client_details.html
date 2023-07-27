@@ -24,6 +24,7 @@
     <br>
 
     <div class="formular_client">
+        <button onclick="history.back()">inapoi</button>
         <h4>Introdu datele clientului in formularul de mai jos:</h4>
 
         <form action="contract_details" method="post">
@@ -59,7 +60,7 @@
                 </tr>
                 <tr>
                     <th>Incepand cu data</th>
-                    <th><input type="date" name="data_start" name="data_start" ></th>
+                    <th><input type="date" name="data_start" name="data_start" value="{{time_date}}" ></th>
                 </tr>
                 <tr>
                     <th>Perioada de inchiriere</th>
@@ -82,9 +83,11 @@
                 </tr>
             </table>
             <br><br>
-            <input class="button_client" type="submit" value="Submit contract">
+            
+            <input style="width:100px" class="button_client" type="submit" value="Contract">
             <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
         </form>
+        <br><br>
         
         
         <br><br>

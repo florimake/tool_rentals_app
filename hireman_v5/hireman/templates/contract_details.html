@@ -4,6 +4,7 @@
     
 <div class="contract_details" style="padding:50px; text-align: center">
     <h1>Detalii despre CONTRACT  ...</h1>
+    <h3 style="padding-left:25px; color:maro">Data {{day_now}}.{{month_now}}.{{year_now}}</h3>
 
    
     <div class="termeni_contract" style="padding:50px 100px; text-align: left">
@@ -13,7 +14,7 @@
             &emsp; Firma <b>SOCIETATEA SRL</b> cu sediul social în <b>ADRESA</b>, înregistrată la Registrul Comerţului sub <b>NUMARUL</b> şi <b>CUI-ul</b>, 
             având cont bancar <b>BANCA SI CONTUL</b>, reprezentant legal, <span>ADMINISTRATOR</span>, în calitate de Administrator, denumit în continuare  <b>PRESTATOR</b>. 
         </span>
-        <H4>Şi</H4>
+        <h3>Şi</h3>
         <span>
             &emsp;Societatea comercială/Persoana fizică <b>{{nume}}</b> având CNP/CUI <b>{{cnp}},</b> adresa <b>{{adresa}}</b>, <br>
             telefon <b>{{telefon}}</b>, mail <b>{{mail}}</b>, numit în continuare <b>BENEFICIAR</b>. 
@@ -23,7 +24,7 @@
         
         {% comment %} <b>Închiriere scule şi utilaje pentru construcţii.</b><br>
         <b>Obiectul contractului îl reprezintă următoarele scule şi utilaje.</b> {% endcomment %}
-        
+         
         <div class="tabel_anexa">
             <div class="tabel_anexa_st">
                 <h3>Anexa nr. 1</h3>
@@ -41,12 +42,12 @@
                         <th>{{data_start}}</th>
                     </tr>
                     <tr>
-                        <th>Data de recuperare</th>
-                        <th>{{data_end}}</th>
+                        <th>Zile inchiriate</th>
+                        <th>Rezervat pentru {{zile}} zile</th>
                     </tr>
                     <tr>
-                        <th>Zile inchiriate</th>
-                        <th>{{zile}} zile</th>
+                        <th>Data de recuperare</th>
+                        <th>{{data_end}}</th>
                     </tr>
                     <tr>
                         <th>Pret inchiriere</th>
@@ -60,14 +61,20 @@
                         <th>Adresa de livrare</th>
                         <th>{{adresa_livrare}}</th>
                     </tr>
-                    <tr>
-                        <th>TOTAL de plata</th>
+                    <tr style="color:green; font-size:large; padding:20px">
+                        <th style="padding:10px">TOTAL de plata</th>
                         <th> {{total_plata}} Ron</th>
                     </tr>
                 </table>
+                <form action="factura">
+                    <h4>
+                        <label for="factura">Cu factura</label>
+                        <input type="checkbox" name="factura" id="factura" checked>
+                    </h4>
+                </form>
             </div>
             <div class="tabel_anexa_dr">
-                <img src="/{{produs.poza}}" hight="200px" width="200px" alt="Poza produs">
+                <img src="/{{produs.poza}}" hight="250px" width="250px" alt="Poza produs">
             </div>
         </div>
 
@@ -75,9 +82,9 @@
 
     
 
-    <a href=" ">
-        <button type="submit"  style='width:150px; height:30px'>Mai departe</button>
-    </a>
+    <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
+    <button type="submit"  style='width:150px; height:30px'>Mai departe</button>
+    
     
     {% comment %} {{forms}}
     {% for form in forms %}

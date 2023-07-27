@@ -38,7 +38,7 @@ CONTEXT_GLOBAL = {
         "request": request,
         "butoane": butoane,
         "data": data,
-        "data_now": data,
+        # "data_now": data,
         "year_now": year,
         "month_now": month,
         "day_now": day,
@@ -123,8 +123,9 @@ def view_home(request):
     return render(request, "home.html", context)
 
 def view_client_details(request, slug=None):
-
+    print(f" - Open view_client_details() => succes")
     if slug != None:
+        print(f"- request POST => accepted")
         pret = get_object_or_404(Produs, slug=slug).pret
         context = {
         "produs": get_object_or_404(Produs, slug=slug) ,
@@ -133,51 +134,56 @@ def view_client_details(request, slug=None):
         
     else: 
         context = {}
+        print(f"- request POST => not accepted")
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    print(f" - Close view_client_details() => succes")
     return render(request, "client_details.html", context)
 
-# def view_contract_details(request):
-#     if request.method == 'POST':
-#             print(f"A primit request POST")
-#     context = {}
-#     add_first_to_second_dict(CONTEXT_GLOBAL,context)
-#     return render(request, "contract_details.html", context)
-
 def view_contract_details(request, slug=None):
+    print(f" - Open view_contract_details() => succes")
+    global data
     if slug != None:
         context = {}
         if request.method == 'POST':
-            # print(f"A primit request POST")
-            r = request.POST
+            print(f"- request POST => accepted")
+            td = time_date.date()
+            rq = request.POST
             data_start = request.POST["data_start"]
-            date_end = time_date + timedelta(days=int(request.POST["pret"][-2::1]))
+            data_end = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date() + timedelta(days=int(request.POST["pret"][-2::1]))
+            # print(f"data - {data}")
+            # print(f"data_start - {data_start}")
+            # print(f"time_date {td}")
+            dts = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date()
+            dte = data_end
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
-            print((request.POST["pret"][-2::1]))
-            print(time_date, "#", date_end)
-            # print(date_end.date())
-            # print(type(int(day)))
-            # print(pret_total)
-            mesaj = " ... nu a fost introdus ..."
+            
+            mesaj = " ... nespecificat ..."
+            
             context = {
             "produs": get_object_or_404(Produs, slug=slug) ,
             "preturi": PretProdus.objects.all(),
-            "forms":r.items(),
+            "forms":rq.items(),
             "nume": request.POST["nume"] if len(request.POST["nume"])>1 else mesaj,
             "cnp": request.POST["cnp"] if len(request.POST["cnp"])>1 else mesaj,
             "adresa": request.POST["adresa"] if len(request.POST["adresa"])>1 else mesaj,
-            "adresa_livrare": request.POST["adresa_livrare"],
+            "adresa_livrare": request.POST["adresa_livrare"] if len(request.POST["adresa_livrare"])>1 else request.POST["adresa"],
             "telefon": request.POST["tel"] if len(request.POST["tel"])>1 else mesaj,
             "mail": request.POST["email"] if len(request.POST["email"])>1 else mesaj,
-            "data_start": f"{data_start[8:11]} - {data_start[5:7]} - {data_start[:4]}",
-            "data_end": f"{date_end.date().day} - {date_end.date().month} - {date_end.date().year}",
+            # "data_start": f"{data_start[8:11]} - {data_start[5:7]} - {data_start[:4]}",
+            "data_start": f"{dts.day}-{dts.month}-{dts.year}",
+            # "data_end": f"{date_end.date().day} - {date_end.date().month} - {date_end.date().year}",
+            "data_end": f"{dte.day}-{dte.month}-{dte.year}",
             "pret": request.POST["pret"][0:-3:1],
             "zile": request.POST["pret"][-2::1],
-            "total_plata" : pret_total
+            "total_plata" : pret_total,
+            "time_date": f"{td.day}-{td.month}-{td.year}",
             }
             add_first_to_second_dict(CONTEXT_GLOBAL,context)
     else: 
+        print(f"- request POST => not accepted")
         context = {}
         add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    print(f" - Close view_contract_details() => succes")    
     return render(request, "contract_details.html", context)
 
 ###################################################################
@@ -195,6 +201,7 @@ def view_contract_details(request, slug=None):
 ###################################################################
 
 def view_termeni_contract(request, slug=None):
+    print(f" - Open view_termeni_contract() => succes") 
     if slug != None:
         pret = get_object_or_404(Produs, slug=slug).pret
         context = {
