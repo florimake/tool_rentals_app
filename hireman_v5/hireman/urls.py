@@ -24,7 +24,7 @@ urlpatterns = [
     path("products/", view_products, name="products"),
     # path("product_details/", view_product_details, name="product_details"),
     path("details/", view_details, name="details"),
-    # path("home/", view_home, name="home"),
+    path("home/", view_home, name="home"),
     path("products/<slug>/", view_product_details),
     path("category/<slug>", view_products_category),
     path('test/', lambda _: HttpResponse('MERGE')),

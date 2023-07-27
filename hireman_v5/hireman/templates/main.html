@@ -47,43 +47,43 @@
          -->
     </div>
 
+    <div id="header" class="header">
+        {% for b in butoane %}
+        <ul>
+            <a href= /{{b}}>
+                <button class="" type="button" > 
+                    {{b}}
+                </button>
+            </a>
+        </ul>
+        {% endfor %}
+    </div>
 
 
     <div class="container_center">
-        <div id="header" class="header">
-            {% for b in butoane %}
-            <ul>
-                <a href= /{{b}}>
-                    <button class="" type="button" > 
-                        {{b}}
-                    </button>
-                </a>
-            </ul>
-            {% endfor %}
-        </div>
         
-        <div class="home">{% block home %}    
+        <div>{% block home %}    
             {% endblock home %}</div>
 
-        <div class="products">{% block products %}    
+        <div>{% block products %}    
             {% endblock products %}</div>
 
-        <div class="products_category">{% block products_category %}    
+        <div>{% block products_category %}    
             {% endblock products_category %}</div>
 
-        <div class="category">{% block category %}
+        <div>{% block category %}
             {% endblock category %}</div>
 
-        <div class="product_details">{% block product_details %}    
+        <div>{% block product_details %}    
             {% endblock product_details %}</div>
 
-        <div class="client_details">{% block client_details %}    
+        <div>{% block client_details %}    
             {% endblock client_details %}</div>
 
-        <div class="contract_details">{% block contract_details %}    
+        <div>{% block contract_details %}    
             {% endblock contract_details %}</div>
 
-        <div class="termeni_contract">{% block termeni_contract %}    
+        <div>{% block termeni_contract %}    
             {% endblock termeni_contract %}</div>
     </div>
 
@@ -130,6 +130,7 @@
 </body>
 
 <script src="{% static 'script/main.js'%}"></script>
+
 <script>
     
 
@@ -154,7 +155,7 @@ function time() {
     var m = d.getMinutes();
     var h = d.getHours();
     live_time.textContent = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
-    live_time.style.color = "red"
+    live_time.style.color = "orange"
 }
 
 setInterval(time, 1000);

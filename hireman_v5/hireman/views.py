@@ -157,16 +157,17 @@ def view_contract_details(request, slug=None):
             # print(date_end.date())
             # print(type(int(day)))
             # print(pret_total)
+            mesaj = " ... nu a fost introdus ..."
             context = {
             "produs": get_object_or_404(Produs, slug=slug) ,
             "preturi": PretProdus.objects.all(),
             "forms":r.items(),
-            "nume": request.POST["nume"],
-            "cnp": request.POST["cnp"],
-            "adresa": request.POST["adresa"],
+            "nume": request.POST["nume"] if len(request.POST["nume"])>1 else mesaj,
+            "cnp": request.POST["cnp"] if len(request.POST["cnp"])>1 else mesaj,
+            "adresa": request.POST["adresa"] if len(request.POST["adresa"])>1 else mesaj,
             "adresa_livrare": request.POST["adresa_livrare"],
-            "telefon": request.POST["tel"],
-            "mail": request.POST["email"],
+            "telefon": request.POST["tel"] if len(request.POST["tel"])>1 else mesaj,
+            "mail": request.POST["email"] if len(request.POST["email"])>1 else mesaj,
             "data_start": f"{data_start[8:11]} - {data_start[5:7]} - {data_start[:4]}",
             "data_end": f"{date_end.date().day} - {date_end.date().month} - {date_end.date().year}",
             "pret": request.POST["pret"][0:-3:1],
