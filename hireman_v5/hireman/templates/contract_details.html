@@ -2,7 +2,7 @@
 {% load static %}
 {% block contract_details %}
     
-<div class="contract_details" style="padding:50px; text-align: center">
+<div class="contract_details" >
     <h1>Detalii despre CONTRACT  ...</h1>
     <h3 style="padding-left:25px; color:maro">Data {{day_now}}.{{month_now}}.{{year_now}}</h3>
 
@@ -22,9 +22,11 @@
         <br><br>
         <h4>TERMENI CONTRACTUALI .... <span style="font-style:unset; text-decoration: none"><a href="termeni_contract">Citeste mai mult</a></span></h4>
         
-        {% comment %} <b>Închiriere scule şi utilaje pentru construcţii.</b><br>
-        <b>Obiectul contractului îl reprezintă următoarele scule şi utilaje.</b> {% endcomment %}
-         
+        {% comment %} 
+        <b>Închiriere scule şi utilaje pentru construcţii.</b><br>
+        <b>Obiectul contractului îl reprezintă următoarele scule şi utilaje.</b>
+        {% endcomment %}
+        
         <div class="tabel_anexa">
             <div class="tabel_anexa_st">
                 <h3>Anexa nr. 1</h3>
@@ -43,7 +45,7 @@
                     </tr>
                     <tr>
                         <th>Zile inchiriate</th>
-                        <th>Rezervat pentru {{zile}} zile</th>
+                        <th>{{zile}} zile</th>
                     </tr>
                     <tr>
                         <th>Data de recuperare</th>
@@ -68,7 +70,7 @@
                 </table>
                 <form action="factura">
                     <h4>
-                        <label for="factura">Cu factura</label>
+                        <label for="factura">Plata cash cu chitanta</label>
                         <input type="checkbox" name="factura" id="factura" checked>
                     </h4>
                 </form>
@@ -79,11 +81,10 @@
         </div>
 
     </div>
-
-    
-
-    <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
-    <button type="submit"  style='width:150px; height:30px'>Mai departe</button>
+    <div id="contract_buttons">
+        <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
+        <button type="submit"  style='width:150px; height:30px'>Mai departe</button>
+    </div>
     
     
     {% comment %} {{forms}}

@@ -21,10 +21,10 @@
 
         <div id="clock">
             {% comment %} <h2><span id="live_time"></span></h2> {% endcomment %}
-            <h2><span>{{data}}</span>
+            <h3><span>{{data}}</span>
                 <br>
                 <span>Ora </span><span id="time"></span>
-            </h2>
+            </h3>
         </div>
     
         <div id="logo">
@@ -37,30 +37,30 @@
         </div>
         <span style='margin-top:5px'>S.C. SOCIETATE S.R.L</span>
         <br><br>
-        {% comment %} <h1>Info panel</h1> {% endcomment %}
         <h3>Contracte in derulare</h3>
         <br>
         {% for contract in contracte %}
-            <li>nr. {{contract}} din data 19.06.2023</li>          
+            <li>Adresa sau Client <br>
+                <span>Contract nr. {{contract}} din {{contract}}.06.2023</span><br>
+                <span>data start {{contract}}.06.2023</span><br>
+                <span>data end {{contract}}.06.2023</span>
+            </li>          
             <br>
         {% endfor %}      
-<!-- 
-        <a class="admin_button" href="/admin">
-            <button type="button">Admin</button>
-        </a>
-         -->
+
     </div>
 
     <div id="header" class="header">
-        {% for b in butoane %}
-        <ul>
+        <div id="header_body">
+            {% for b in butoane %}
             <a href= /{{b}}>
                 <button class="" type="button" > 
                     {{b}}
                 </button>
             </a>
-        </ul>
         {% endfor %}
+        </div>
+        
     </div>
 
 
@@ -93,17 +93,8 @@
 
 
 
-    <div class="container_right">
-        <titlu>
-            <ul>
-                <h2>Inchirieri utilaje casa si gradina</h2>
-                {% comment %} 
-                <li><p>Printare contract</p></li>
-                <li>Facturare</li> 
-                {% endcomment %}
-            </ul>
-        </titlu>
-
+    <div class="container_right"> 
+        <h2>Inchirieri utilaje casa si gradina</h2>
         <br><br>
         {% comment %} <h1>Info panel </h1> {% endcomment %}
         {% comment %} <h3>Cele mai inchiriate luna asta:</h3> {% endcomment %}
