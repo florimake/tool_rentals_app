@@ -82,16 +82,18 @@ def view_products_category(request, slug=None):
     
     produse = []
     produse_cat = Produs.objects.all()
+    
     # print(produse_cat)
     for x in produse_cat:
-        if x.categorie.slug == slug:
-            # print(x)
+        if x.categorie.slug == slug and x.status == "disponibil":
+            print(x)
             produse.append(x)
 
     context = {
         "produse": produse,
         "categoria": Categorie.objects.get(slug=slug)
     }
+    print(produse)
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "products_category.html", context)
 
@@ -162,7 +164,7 @@ def view_contract_details(request, slug=None):
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
             mesaj = " ... nespecificat ..."            
             context = {
-                "nr_contract": f"{len(Contract.objects.all())+1}",
+                # "nr_contract": f"{len(Contract.objects.all())+1}",
                 "srl" : Societate.objects.get(),
                 "produs": get_object_or_404(Produs, slug=slug) ,
                 "preturi": PretProdus.objects.all(),

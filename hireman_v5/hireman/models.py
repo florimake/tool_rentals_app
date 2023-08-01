@@ -203,7 +203,7 @@ class Contract(models.Model):
     
     # id = models.AutoField(primary_key=True, unique=True, auto_created=True)
     
-    societate = models.ForeignKey(Societate, on_delete=models.CASCADE)
+    # societate = models.ForeignKey(Societate, on_delete=models.CASCADE)
     nume_srl = models.CharField(max_length=50)
     cui = models.IntegerField()
     adresa_srl = models.CharField(max_length=150)
@@ -213,7 +213,7 @@ class Contract(models.Model):
     banca_srl = models.CharField(max_length=50, null=True)
     cont_srl = models.CharField(max_length=50, null=True)
     
-    client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+    # client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
     nume_client = models.CharField(max_length=50)
     cnp = models.IntegerField()
     adresa_client = models.CharField(max_length=150)
@@ -224,6 +224,8 @@ class Contract(models.Model):
     cont_client = models.CharField(max_length=50, null=True)
     
     produs = models.CharField(max_length=50)
+    garantie_produs = models.IntegerField()
+    cost = models.IntegerField()
     nr_zile = models.IntegerField()
     data_start = models.DateField()
     data_end = models.DateField()
