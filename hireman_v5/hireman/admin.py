@@ -36,9 +36,9 @@ class ProdusAdmin(admin.ModelAdmin):
 
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
-    list_display = ("__str__" , "client_id", Contract.perioada, "observatii", "data_start", "data_end", Contract.Status)
+    list_display = ("__str__" , "nume_client", Contract.perioada, "observatii", "data_start", "data_end", Contract.Status)
     list_filter = ("data",)
-    search_fields = ("nr",)
+    search_fields = ("data_start",)
     
 @admin.register(Recenzie)
 class RecenzieAdmin(admin.ModelAdmin):

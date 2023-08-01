@@ -8,6 +8,7 @@ from datetime import datetime as dt
 from datetime import timedelta
 
 
+
 # Create your views here.
 
 
@@ -37,8 +38,6 @@ request = None
 CONTEXT_GLOBAL = {
         "request": request,
         "butoane": butoane,
-        "data": data,
-        # "data_now": data,
         "year_now": year,
         "month_now": month,
         "day_now": day,
@@ -73,7 +72,9 @@ def view_category(request):
 
 def view_products(request):
     produse = Produs.objects.all()
-    context = {"produse": produse}
+    context = {
+        "produse": produse
+    }
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "products.html", context)
 
@@ -87,9 +88,10 @@ def view_products_category(request, slug=None):
             # print(x)
             produse.append(x)
 
-    context = {"produse": produse,
-               "categoria": Categorie.objects.get(slug=slug)
-               }
+    context = {
+        "produse": produse,
+        "categoria": Categorie.objects.get(slug=slug)
+    }
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "products_category.html", context)
 
@@ -98,9 +100,9 @@ def view_product_details(request, slug=None):
     if slug != None:
         spec = get_object_or_404(Produs, slug=slug).specificatii
         context = {
-        "produs": get_object_or_404(Produs, slug=slug) ,
-        "preturi": PretProdus.objects.all(),
-        "specificatii": spec.splitlines()
+            "produs": get_object_or_404(Produs, slug=slug) ,
+            "preturi": PretProdus.objects.all(),
+            "specificatii": spec.splitlines()
         }
         
     else: 
@@ -126,10 +128,10 @@ def view_client_details(request, slug=None):
     print(f" - Open view_client_details() => succes")
     if slug != None:
         print(f"- request POST => accepted")
-        pret = get_object_or_404(Produs, slug=slug).pret
         context = {
-        "produs": get_object_or_404(Produs, slug=slug) ,
-        "preturi": PretProdus.objects.all(),
+            "produs": get_object_or_404(Produs, slug=slug) ,
+            "preturi": PretProdus.objects.all(),
+            "time_date": f"{time_date.date()}",
         }
         
     else: 
@@ -139,54 +141,60 @@ def view_client_details(request, slug=None):
     print(f" - Close view_client_details() => succes")
     return render(request, "client_details.html", context)
 
+
+last_contract = {}
 def view_contract_details(request, slug=None):
-    print(f" - Open view_contract_details() => succes")
+    global last_contract
+    
+    # print(f" - Open view_contract_details() => succes")
     global data
     if slug != None:
         context = {}
+        
         if request.method == 'POST':
-            print(f"- request POST => accepted")
+            # print(f"- request POST => accepted")
             td = time_date.date()
             rq = request.POST
             data_start = request.POST["data_start"]
             data_end = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date() + timedelta(days=int(request.POST["pret"][-2::1]))
-            # print(f"data - {data}")
-            # print(f"data_start - {data_start}")
-            # print(f"time_date {td}")
             dts = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date()
             dte = data_end
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
-            
-            mesaj = " ... nespecificat ..."
-            
+            mesaj = " ... nespecificat ..."            
             context = {
-            "produs": get_object_or_404(Produs, slug=slug) ,
-            "preturi": PretProdus.objects.all(),
-            "forms":rq.items(),
-            "nume": request.POST["nume"] if len(request.POST["nume"])>1 else mesaj,
-            "cnp": request.POST["cnp"] if len(request.POST["cnp"])>1 else mesaj,
-            "adresa": request.POST["adresa"] if len(request.POST["adresa"])>1 else mesaj,
-            "adresa_livrare": request.POST["adresa_livrare"] if len(request.POST["adresa_livrare"])>1 else request.POST["adresa"],
-            "telefon": request.POST["tel"] if len(request.POST["tel"])>1 else mesaj,
-            "mail": request.POST["email"] if len(request.POST["email"])>1 else mesaj,
-            # "data_start": f"{data_start[8:11]} - {data_start[5:7]} - {data_start[:4]}",
-            "data_start": f"{dts.day}-{dts.month}-{dts.year}",
-            # "data_end": f"{date_end.date().day} - {date_end.date().month} - {date_end.date().year}",
-            "data_end": f"{dte.day}-{dte.month}-{dte.year}",
-            "pret": request.POST["pret"][0:-3:1],
-            "zile": request.POST["pret"][-2::1],
-            "total_plata" : pret_total,
-            "time_date": f"{td.day}-{td.month}-{td.year}",
+                "nr_contract": f"{len(Contract.objects.all())+1}",
+                "srl" : Societate.objects.get(),
+                "produs": get_object_or_404(Produs, slug=slug) ,
+                "preturi": PretProdus.objects.all(),
+                "forms":rq.items(),
+                "nume": request.POST["nume"] if len(request.POST["nume"])>1 else mesaj,
+                "cnp": request.POST["cnp"] if len(request.POST["cnp"])>1 else mesaj,
+                "adresa": request.POST["adresa"] if len(request.POST["adresa"])>1 else mesaj,
+                "adresa_livrare": request.POST["adresa_livrare"] if len(request.POST["adresa_livrare"])>1 else request.POST["adresa"],
+                "telefon": request.POST["tel"] if len(request.POST["tel"])>1 else mesaj,
+                "mail": request.POST["email"] if len(request.POST["email"])>1 else mesaj,
+                "data_start": f"{dts.day}-{dts.month}-{dts.year}",
+                "data_end": f"{dte.day}-{dte.month}-{dte.year}",
+                "pret": request.POST["pret"][0:-3:1],
+                "zile": request.POST["pret"][-2::1],
+                "total_plata" : pret_total,
+                "time_date": f"{td.day}-{td.month}-{td.year}",
+                "data": f"{time_date.date()}",
             }
             add_first_to_second_dict(CONTEXT_GLOBAL,context)
     else: 
         print(f"- request POST => not accepted")
         context = {}
         add_first_to_second_dict(CONTEXT_GLOBAL,context)
-    print(f" - Close view_contract_details() => succes")    
+    
+    # print(f" - Close view_contract_details() => succes")    
+    last_contract = context
+    # print(last_contract)
     return render(request, "contract_details.html", context)
 
 ###################################################################
+# Model de POST si GET
+# 
 # def index(request):
 #       return render(request, 'index.html')
 # def validate(request):
@@ -205,8 +213,8 @@ def view_termeni_contract(request, slug=None):
     if slug != None:
         pret = get_object_or_404(Produs, slug=slug).pret
         context = {
-        "produs": get_object_or_404(Produs, slug=slug) ,
-        "preturi": PretProdus.objects.all(),
+            "produs": get_object_or_404(Produs, slug=slug) ,
+            "preturi": PretProdus.objects.all(),
         }
         
     else: 

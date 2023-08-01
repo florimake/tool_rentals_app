@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -183,6 +184,8 @@ class Societate(models.Model):
     tel = models.BigIntegerField()
     mail = models.CharField(max_length=50)
     data = datetime.date(datetime.now())
+    banca = models.CharField(max_length=50, null=True)
+    cont = models.CharField(max_length=50, null=True)
 
     class Meta:
         db_table = ''
@@ -194,18 +197,35 @@ class Societate(models.Model):
         return self.nume
 
 
-
-
 class Contract(models.Model):
+    nr_contract = models.IntegerField(null=True, default=0)
+    data = models.DateField(default= timezone.now(), null=True)
+    
     # id = models.AutoField(primary_key=True, unique=True, auto_created=True)
     
-    nr = models.IntegerField()
-    data = models.DateField(default=datetime.date(datetime.now()))
-    
     societate = models.ForeignKey(Societate, on_delete=models.CASCADE)
-    client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+    nume_srl = models.CharField(max_length=50)
+    cui = models.IntegerField()
+    adresa_srl = models.CharField(max_length=150)
+    director = models.CharField(max_length=50)
+    tel_srl = models.BigIntegerField()
+    mail_srl = models.CharField(max_length=50)
+    banca_srl = models.CharField(max_length=50, null=True)
+    cont_srl = models.CharField(max_length=50, null=True)
     
-    data_start = models.DateField(default= datetime.date(datetime.now()))
+    client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+    nume_client = models.CharField(max_length=50)
+    cnp = models.IntegerField()
+    adresa_client = models.CharField(max_length=150)
+    adresa_livrare = models.CharField(max_length=150)
+    tel_client = models.BigIntegerField()
+    mail_client = models.CharField(max_length=50)
+    banca_client = models.CharField(max_length=50, null=True)
+    cont_client = models.CharField(max_length=50, null=True)
+    
+    produs = models.CharField(max_length=50)
+    nr_zile = models.IntegerField()
+    data_start = models.DateField()
     data_end = models.DateField()
     
     # ZILE = (("1", "1 zi"), ("2", "2 zile"), ("3", "3 zile"), ("4", "4 zile"), ("5", "5 zile"), ("w", "weekend"), ("s", "o saptamana"))
@@ -235,7 +255,7 @@ class Contract(models.Model):
     
     def __str__(self):
         self.Status()
-        return f"Contract nr.{self.nr} din {self.data}" 
+        return f"Contract nr.{self.nr_contract} din {self.data}" 
     
     
 # class MeniuBar(models.Model):
