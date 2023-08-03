@@ -96,8 +96,8 @@ class Reparatie(models.Model):
     
     cost = models.IntegerField()
     data = datetime.date(datetime.now())
-    data_start = models.DateField(default= datetime.date(datetime.now()))
-    data_end = models.DateField(default= datetime.date(datetime.now()))
+    data_start = models.DateField(default= timezone.now())
+    data_end = models.DateField(default= timezone.now())
 
     def stare_produs(self):
         data_curenta = datetime.date(datetime.now())
@@ -248,7 +248,14 @@ class Contract(models.Model):
             return f"Finalizat"
         else:
             return"null"
-    
+        
+    def Schimba_status_produs(self):
+        produs = Produs.objects.get(slug = self.produs)
+        produs.status = "nedisponibil"
+        produs.save()
+        print(f"statusul produsului {produs} este {produs.status}")
+        
+        
     class Meta:
         db_table = ''
         managed = True
@@ -257,6 +264,7 @@ class Contract(models.Model):
     
     def __str__(self):
         self.Status()
+        self.Schimba_status_produs()
         return f"Contract nr.{self.nr_contract} din {self.data}" 
     
     

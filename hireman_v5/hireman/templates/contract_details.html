@@ -1,7 +1,8 @@
 {% extends "main.html" %}
 {% load static %}
 {% block contract_details %}
-    
+
+
 <div class="contract_details" >
     <h1 style='color:{{produs.status_color}}'> Detalii despre CONTRACT</h1>
     <h3 style="padding-left:25px; color:maro">Contract nr. {{nr_contract}} din data {{data}}</h3>
@@ -15,7 +16,7 @@
             având cont bancar <b>{{srl.banca}}</b> cont <b>{{srl.cont}}</b>, reprezentant legal, <b>{{srl.director}}</b>, în calitate de Administrator, denumit în continuare  <b>PRESTATOR</b>. 
         </span>
         <h3>Şi</h3>
-        <span>
+        <span id="client_details">
             &emsp;Societatea comercială/Persoana fizică <b>{{nume}}</b> având CNP/CUI <b>{{cnp}},</b> adresa <b>{{adresa}}</b>,
             telefon <b>{{telefon}}</b>, mail <b>{{mail}}</b>, numit în continuare <b>BENEFICIAR</b>. 
         </span>

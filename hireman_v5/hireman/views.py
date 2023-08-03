@@ -53,7 +53,8 @@ def add_first_to_second_dict(first_dict, second_dict):
         second_dict[key] = value
     return second_dict
 
-
+def cele_mai_inchiriate():
+    pass
 
 def view_main(request):
     context = {}
@@ -98,9 +99,30 @@ def view_products_category(request, slug=None):
     return render(request, "products_category.html", context)
 
 def view_product_details(request, slug=None):
-
     if slug != None:
         spec = get_object_or_404(Produs, slug=slug).specificatii
+        produs_selectat = Produs.objects.get(slug=slug)
+        
+        # ferificare status si preluarea datei cand se termina perioada
+        if produs_selectat.status == "disponibil" :
+            add_first_to_second_dict({
+                    "data_end": f" "
+                }, CONTEXT_GLOBAL)
+        elif produs_selectat.status == "nedisponibil" :
+            data_end_contract = Contract.objects.get(produs = produs_selectat.slug).data_end
+            print(data_end_contract)
+            add_first_to_second_dict({
+                    "data_end": f"Disponibil de pe {data_end_contract + timedelta(days=1)}"
+                }, CONTEXT_GLOBAL)
+        elif produs_selectat.status == "service" :
+            data_end_service = Reparatie.objects.get(produs_id = produs_selectat.id).data_end
+            print(data_end_service)
+            add_first_to_second_dict({
+                    "data_end": f"Disponibil de pe {data_end_service + timedelta(days=1)}"
+                }, CONTEXT_GLOBAL)
+            
+        print(f'product_details: {produs_selectat}')
+        
         context = {
             "produs": get_object_or_404(Produs, slug=slug) ,
             "preturi": PretProdus.objects.all(),
@@ -162,9 +184,9 @@ def view_contract_details(request, slug=None):
             dts = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date()
             dte = data_end
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
-            mesaj = " ... nespecificat ..."            
+            mesaj = " ... nespecificat ..."
             context = {
-                # "nr_contract": f"{len(Contract.objects.all())+1}",
+                "nr_contract": f"{len(Contract.objects.all()) + 1}",
                 "srl" : Societate.objects.get(),
                 "produs": get_object_or_404(Produs, slug=slug) ,
                 "preturi": PretProdus.objects.all(),
@@ -191,7 +213,7 @@ def view_contract_details(request, slug=None):
     
     # print(f" - Close view_contract_details() => succes")    
     last_contract = context
-    # print(last_contract)
+    print(last_contract)
     return render(request, "contract_details.html", context)
 
 ###################################################################
