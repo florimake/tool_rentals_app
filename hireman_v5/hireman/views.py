@@ -9,6 +9,7 @@ from datetime import timedelta
 
 
 
+
 # Create your views here.
 
 
@@ -185,6 +186,7 @@ def view_contract_details(request, slug=None):
             dte = data_end
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
             mesaj = " ... nespecificat ..."
+            # print(data_end)
             context = {
                 "nr_contract": f"{len(Contract.objects.all()) + 1}",
                 "srl" : Societate.objects.get(),
@@ -213,7 +215,7 @@ def view_contract_details(request, slug=None):
     
     # print(f" - Close view_contract_details() => succes")    
     last_contract = context
-    print(last_contract)
+    # print(last_contract)
     return render(request, "contract_details.html", context)
 
 ###################################################################
@@ -245,3 +247,21 @@ def view_termeni_contract(request, slug=None):
         context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "termeni_contract.html", context)
+
+
+def view_imagine(request, poza):
+    produse = Produs.objects.all()
+    category = Categorie.objects.all()
+    img = ""
+    for x in produse:
+        if x.poza == f"hireman/static/media/{poza}":
+            img = x
+    for x in category:
+        if x.poza == f"hireman/static/media/category/{poza}":
+            img = x
+    context= {
+        "img_view" : img,
+        }
+    print(poza)
+    print(img)
+    return render(request, "img.html", context)

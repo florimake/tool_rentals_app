@@ -198,7 +198,7 @@ class Societate(models.Model):
 
 
 class Contract(models.Model):
-    nr_contract = models.IntegerField(null=True, default=0)
+    nr_contract = 1
     data = models.DateField(default= timezone.now(), null=True)
     
     # id = models.AutoField(primary_key=True, unique=True, auto_created=True)
@@ -229,6 +229,7 @@ class Contract(models.Model):
     nr_zile = models.IntegerField()
     data_start = models.DateField()
     data_end = models.DateField()
+    pdf_path = models.FileField(upload_to='hireman/static/contracte_pdf/', null=True, default=f"hireman/static/contracte_pdf/contract-nr{nr_contract}-din:{timezone.now().date}")
     
     # ZILE = (("1", "1 zi"), ("2", "2 zile"), ("3", "3 zile"), ("4", "4 zile"), ("5", "5 zile"), ("w", "weekend"), ("s", "o saptamana"))
     # perioada = models.CharField(choices=ZILE, default=1, max_length=50)
@@ -237,6 +238,9 @@ class Contract(models.Model):
         return zile.days
     
     observatii = models.CharField(max_length=255, null=True, default="fara observatii")
+    nr_contract += 1
+    
+    
     
     def Status(self):
         data2 = datetime.date(datetime.now())
@@ -261,6 +265,7 @@ class Contract(models.Model):
         managed = True
         verbose_name = 'Contract'
         verbose_name_plural = 'Contracte'
+        
     
     def __str__(self):
         self.Status()

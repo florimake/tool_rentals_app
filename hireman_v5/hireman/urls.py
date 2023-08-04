@@ -32,4 +32,6 @@ urlpatterns = [
     path("client/", view_client_details, name="client_details"),
     path("<slug>/client/contract_details", view_contract_details, name="contract_details"),
     path("<slug>/client/termeni_contract", view_termeni_contract, name="termeni_contract"),
+    path("static/hireman/static/media/<poza>", view_imagine, name="view_imagine"),
+    path("static/hireman/static/media/category/<poza>", view_imagine, name="view_imagine"),
 ]
