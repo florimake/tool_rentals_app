@@ -73,12 +73,48 @@ def view_category(request):
 
 
 def view_products(request):
-    produse = Produs.objects.all()
-    context = {
-        "produse": produse
-    }
-    add_first_to_second_dict(CONTEXT_GLOBAL,context)
-    return render(request, "products.html", context)
+    if request.method == 'GET':
+        rezultat = []
+        get = request.GET
+        print(len(get))
+        print(len(rezultat))
+        if len(get) > 0:
+            for key, value in get.items():
+                rezultat.append(value)
+            
+            produse = Produs.objects.all()
+            produse_cautate=[]
+            
+            for produs in produse:
+                if produs.status == rezultat[0]:
+                    produse_cautate.append(produs)
+                elif rezultat[0].lower() in produs.nume.lower() and len(get) > 0:
+                    produse_cautate.append(produs)
+                elif rezultat[0].lower() in produs.descriere.lower():
+                    produse_cautate.append(produs)
+            
+            if len(produse_cautate) > 0 and len(get) == 1 and len(rezultat[0]) > 0:
+                mesaj= f"{rezultat[0]}..."
+            elif len(produse_cautate) == 0 and len(get) > 0:
+                mesaj= f"{rezultat[0]}..."
+            elif len(get) != 0:
+                mesaj="Search..."
+                
+            context = {
+                "produse": produse_cautate,
+                "mesaj":mesaj
+            }
+            add_first_to_second_dict(CONTEXT_GLOBAL,context)
+            return render(request, "products.html", context)
+        
+        else:
+            produse = Produs.objects.all()
+            context = {
+                "produse": produse,
+                "mesaj": "Search..."
+            }
+            add_first_to_second_dict(CONTEXT_GLOBAL,context)
+            return render(request, "products.html", context)
 
 def view_products_category(request, slug=None):
     
@@ -171,13 +207,13 @@ last_contract = {}
 def view_contract_details(request, slug=None):
     global last_contract
     
-    # print(f" - Open view_contract_details() => succes")
+    print(f" - Open view_contract_details() => succes")
     global data
     if slug != None:
         context = {}
         
         if request.method == 'POST':
-            # print(f"- request POST => accepted")
+            print(f"- request POST => accepted")
             td = time_date.date()
             rq = request.POST
             data_start = request.POST["data_start"]
@@ -186,7 +222,7 @@ def view_contract_details(request, slug=None):
             dte = data_end
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
             mesaj = " ... nespecificat ..."
-            # print(data_end)
+            print(f"Data end: {data_end}")
             context = {
                 "nr_contract": f"{len(Contract.objects.all()) + 1}",
                 "srl" : Societate.objects.get(),
