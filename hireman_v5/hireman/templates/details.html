@@ -1,6 +1,8 @@
 {% extends "main.html" %}
 {% load static %}
 {% block product_details %}
+
+    <h3 style='color: green'>{{mesaj}}</h3>
     <h2>Informatii utile ...</h2>
     <ul>Todo details site : <br><br>
         <li>Informatii despre Societate</li>
@@ -9,6 +11,13 @@
         <li>lista de clienti</li>
         <li>detalii despre contracte in desfasurare</li>
     </ul>
+    <h2>Contracte</h2>
+    <ul>
+        {% for contract in contracte %}
+            <li>{{contract}}</li>
+        {% endfor %}
+    </ul>
+    
 
     <br><br>
     <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px">

@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from datetime import datetime as dt
 from datetime import timedelta
+import time
 
 
 
@@ -20,6 +21,7 @@ butoane = Buton_meniu.objects.all()
 time_date=timezone.now()
 
 # Preluarea datei
+# data = datetime.now().strftime("%Y-%m-%d")
 data = datetime.date.today()
 year = datetime.date.today().year
 # month = str(datetime.date.today().strftime('%B'))
@@ -27,11 +29,10 @@ month = datetime.date.today().month
 day = str(datetime.date.today().day).zfill(2)
 
 
-
+############################################################## GLOBAL ################################################################
 
 # Contracte incheiate in ultimile 10 zile harcodate
-contracte = ["10", '11', '12', '13', '14']
-
+contracte = [contract for contract in Contract.objects.all()]
 
 
 # Global context care se aplica pentru toate paginile
@@ -42,7 +43,8 @@ CONTEXT_GLOBAL = {
         "year_now": year,
         "month_now": month,
         "day_now": day,
-        "contracte": contracte,
+        "contracte_info": [c for c in Contract.objects.all() if data <= c.data_end][::-1][0:3],
+        "contracte": contracte[::-1],
     }
 
 
@@ -54,15 +56,24 @@ def add_first_to_second_dict(first_dict, second_dict):
         second_dict[key] = value
     return second_dict
 
+#last contract
+last_contract = {}
+
+
 def cele_mai_inchiriate():
     pass
+############################################################## GLOBAL ################################################################
 
+
+############################################################### MAIN #################################################################
 def view_main(request):
     context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "main.html", context)
+############################################################### MAIN #################################################################
 
 
+############################################################# CATEGORY ###############################################################
 def view_category(request):
     categorii = Categorie.objects.all()
     context = {
@@ -70,14 +81,18 @@ def view_category(request):
     }
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "category.html", context)
+############################################################# CATEGORY ###############################################################
 
 
+############################################################# PRODUCTS ###############################################################
 def view_products(request):
+    Reparatie.objects.get
+    c = [x for x in Contract.objects.all()]
+    # print(c)
+    
     if request.method == 'GET':
         rezultat = []
         get = request.GET
-        print(len(get))
-        print(len(rezultat))
         if len(get) > 0:
             for key, value in get.items():
                 rezultat.append(value)
@@ -115,8 +130,13 @@ def view_products(request):
             }
             add_first_to_second_dict(CONTEXT_GLOBAL,context)
             return render(request, "products.html", context)
+############################################################# PRODUCTS ################################################################        
+        
 
+######################################################### PRODUCTS CATEGORY ###########################################################
 def view_products_category(request, slug=None):
+    Reparatie.objects.get
+    Contract.objects.get
     
     produse = []
     produse_cat = Produs.objects.all()
@@ -134,7 +154,9 @@ def view_products_category(request, slug=None):
     print(produse)
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "products_category.html", context)
+######################################################### PRODUCTS CATEGORY ###########################################################
 
+########################################################## PRODUCT DETAILS ############################################################
 def view_product_details(request, slug=None):
     if slug != None:
         spec = get_object_or_404(Produs, slug=slug).specificatii
@@ -169,17 +191,88 @@ def view_product_details(request, slug=None):
     else: 
         context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
-    
-    
     return render(request, "product_details.html", context)
+########################################################## PRODUCT DETAILS ############################################################
 
 
+############################################################## DETAILS ################################################################
 def view_details(request):
-    context = {}
+    global last_contract
+    get = request.GET
+    key_get = [k for k, v in get.items()]
+    value_get = [v for k, v in get.items()]
+    context = {
+            "mesaj": ""
+        }
+    if len(key_get) > 0:
+        print(f"Sa salvat: {key_get[0]} {value_get[0]}")    
+        context = {
+            "mesaj": f"Sa salvat cu succes: {key_get[0]} {value_get[0]}"
+        }
+        print(last_contract)
+            
+    if request.method == 'POST':
+            rq = request.POST
+            last_contract["banca_client"] = rq["banca"]
+            last_contract["cont_client"] = rq["contul"]
+            context = {
+                "mesaj": f"Sa salvat cu succes: Contractul nr. {rq['contract-nr']}",
+            }
+            print(rq)
+            print(rq["banca"], rq["contul"])
+            # print([Contract.objects.get(all)])
+            
+            # Metoda de salvare in DB contract
+            contract = Contract(
+                nume_srl = last_contract["nume_srl"],
+                cui = last_contract["cui"],
+                adresa_srl = last_contract["adresa_srl"],
+                director = last_contract["director"],
+                tel_srl = last_contract["tel_srl"],
+                mail_srl = last_contract["mail_srl"],
+                banca_srl = last_contract["banca_srl"],
+                cont_srl = last_contract["cont_srl"],
+                
+                # client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+                nume_client = last_contract["nume_client"],
+                cnp = last_contract["cnp"],
+                adresa_client = last_contract["adresa_client"],
+                adresa_livrare = last_contract["adresa_livrare"],
+                tel_client = last_contract["tel_client"],
+                mail_client = last_contract["mail_client"],
+                banca_client = last_contract["banca_client"],
+                cont_client = last_contract["cont_client"],
+                
+                produs = Produs.objects.get(nume=last_contract["produs"]).slug,
+                garantie_produs = last_contract["garantie_produs"],
+                cost = last_contract["cost"],
+                nr_zile = last_contract["nr_zile"],
+                data_start = dt.strptime(f"{last_contract['data_start']}", '%d-%m-%Y').date(),
+                data_end = dt.strptime(f"{last_contract['data_end']}", '%d-%m-%Y').date(),
+            )
+            # print(contract)
+            contract.save()
+            
+            clienti = Client.objects.all()
+            save = bool([x for x in clienti if x.cnp == int(last_contract["cnp"])])
+            print(save)
+            if not save:
+                client = Client(
+                    nume = last_contract["nume_client"],
+                    cnp = last_contract["cnp"],
+                    adresa = last_contract["adresa_client"],
+                    tel = last_contract["tel_client"],
+                    mail = last_contract["mail_client"],
+                )
+                print(client)
+                client.save()
+            
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "details.html", context)
+############################################################## DETAILS ################################################################
 
 
+############################################################### HOME ##################################################################
 def view_home(request):
     context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
@@ -201,28 +294,29 @@ def view_client_details(request, slug=None):
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     print(f" - Close view_client_details() => succes")
     return render(request, "client_details.html", context)
+############################################################### HOME ##################################################################
 
 
-last_contract = {}
+########################################################## CONTRACT DETAILS ###########################################################
 def view_contract_details(request, slug=None):
-    global last_contract
+    global last_contract 
+    td = time_date.date()
     
-    print(f" - Open view_contract_details() => succes")
+    # print(f" - Open view_contract_details() => succes")
     global data
     if slug != None:
         context = {}
         
         if request.method == 'POST':
-            print(f"- request POST => accepted")
-            td = time_date.date()
+            # print(f"- request POST => accepted")
             rq = request.POST
             data_start = request.POST["data_start"]
-            data_end = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date() + timedelta(days=int(request.POST["pret"][-2::1]))
             dts = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date()
-            dte = data_end
+            dte = dt.strptime(f"{data_start[8:11]}-{data_start[5:7]}-{data_start[:4]}", '%d-%m-%Y').date() + timedelta(days=int(request.POST["pret"][-2::1]))
             pret_total = int(request.POST["pret"][0:-3:1]) + int(get_object_or_404(Produs, slug=slug).garantie)
             mesaj = " ... nespecificat ..."
-            print(f"Data end: {data_end}")
+            print(f"Data start: {dts}")
+            print(f"Data end: {dte}")
             context = {
                 "nr_contract": f"{len(Contract.objects.all()) + 1}",
                 "srl" : Societate.objects.get(),
@@ -244,17 +338,62 @@ def view_contract_details(request, slug=None):
                 "data": f"{time_date.date()}",
             }
             add_first_to_second_dict(CONTEXT_GLOBAL,context)
+            
+            societate = Societate.objects.get()
+            produs = get_object_or_404(Produs, slug=slug)
+            # print(societate, produs)
+            add_first_to_second_dict({
+                    #societatea
+                "nr_contract": f"{len(Contract.objects.all()) + 1}",
+                "nume_srl" : Societate.objects.get(),
+                "cui": societate.cui,
+                "adresa_srl": societate.adresa,
+                "director": societate.director,
+                "tel_srl": societate.tel,
+                "mail_srl": societate.mail,
+                "banca_srl": societate.banca,
+                "cont_srl": societate.cont,
+                    
+                    #clientul
+                "nume_client": request.POST["nume"] if len(request.POST["nume"])>1 else mesaj,
+                "cnp": request.POST["cnp"] if len(request.POST["cnp"])>1 else mesaj,
+                "adresa_client": request.POST["adresa"] if len(request.POST["adresa"])>1 else mesaj,
+                "adresa_livrare": request.POST["adresa_livrare"] if len(request.POST["adresa_livrare"])>1 else request.POST["adresa"],
+                "tel_client": request.POST["tel"] if len(request.POST["tel"])>1 else mesaj,
+                "mail_client": request.POST["email"] if len(request.POST["email"])>1 else mesaj,
+                "banca_client": "",
+                "cont_client": "",
+                    
+                    #produsul
+                "produs": produs.nume,
+                "garantie_produs": produs.garantie,
+                "cost" : pret_total,
+                "nr_zile": request.POST["pret"][-2::1],
+                "data_start": f"{dts.day}-{dts.month}-{dts.year}",
+                "data_end": f"{dte.day}-{dte.month}-{dte.year}",
+                }, last_contract)
+            print(last_contract)
+        # get = request.GET
+        # key_get = [k for k, v in get.items()]
+        # value_get = [v for k, v in get.items()]
+        # add_first_to_second_dict(last_contract,context)
+        
+        # # Metoda de salvare in DB contract
+        # if len(key_get) > 0:
+        #     print(f"Sa salvat: {key_get[0]} {value_get[0]}")            
+        
     else: 
         print(f"- request POST => not accepted")
         context = {}
         add_first_to_second_dict(CONTEXT_GLOBAL,context)
     
     # print(f" - Close view_contract_details() => succes")    
-    last_contract = context
-    # print(last_contract)
+    # last_contract = context
+    
     return render(request, "contract_details.html", context)
+########################################################## CONTRACT DETAILS ###########################################################
 
-###################################################################
+##########################################################
 # Model de POST si GET
 # 
 # def index(request):
@@ -268,8 +407,9 @@ def view_contract_details(request, slug=None):
 #          'password': password
 #       }
 #       return render(request, 'validate.html', dict) 
-###################################################################
+###########################################################
 
+######################################################### TERMENI CONTRACT ############################################################
 def view_termeni_contract(request, slug=None):
     print(f" - Open view_termeni_contract() => succes") 
     if slug != None:
@@ -283,8 +423,10 @@ def view_termeni_contract(request, slug=None):
         context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "termeni_contract.html", context)
+######################################################### TERMENI CONTRACT ############################################################
 
 
+############################################################## IMAGINE ################################################################
 def view_imagine(request, poza):
     produse = Produs.objects.all()
     category = Categorie.objects.all()
@@ -301,3 +443,4 @@ def view_imagine(request, poza):
     print(poza)
     print(img)
     return render(request, "img.html", context)
+############################################################## IMAGINE ################################################################

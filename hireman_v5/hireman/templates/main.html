@@ -40,11 +40,11 @@
         <br><br>
         <h3>Contracte in derulare</h3>
         <br>
-        {% for contract in contracte %}
-            <li>Adresa sau Client <br>
-                <span>Contract nr. {{contract}} din {{contract}}.06.2023</span><br>
-                <span>data start {{contract}}.06.2023</span><br>
-                <span>data end {{contract}}.06.2023</span>
+        {% for contract in contracte_info %}
+            <li>Client: {{contract.nume_client}} <br>
+                <span>Contract nr. {{contract.pk}} din {{contract.data}}</span><br>
+                <span>data start {{contract.data_start}}</span><br>
+                <span>data end {{contract.data_end}}</span>
             </li>          
             <br>
         {% endfor %}      
@@ -160,7 +160,7 @@ function time() {
 var live_date = document.getElementById('data');
 
 function time() {
-    var isziua = new Array("Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica");
+    var isziua = new Array("Duminica", "Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica");
     if (isziua[dd] == "Duminica") {
         live_date.style.color = "red" 
     } if (isziua[dd] == "Sambata") {

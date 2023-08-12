@@ -135,3 +135,6 @@ STATICFILES_DIR = [
 
 MEDIA_ROOT = ''
 MEDIA_URL = '/static/'
+
+# if Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/details/ (note the trailing slash)
+# APPEND_SLASH=False

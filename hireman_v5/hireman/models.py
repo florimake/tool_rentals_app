@@ -92,7 +92,7 @@ class Reparatie(models.Model):
     nume_service = models.CharField(max_length=50)
     tel = models.IntegerField()
     mail = models.CharField(max_length=50)
-    produs_id = models.ForeignKey(Produs , on_delete=models.CASCADE, serialize=True) 
+    produs_id = models.ForeignKey(Produs , on_delete=models.CASCADE, serialize=True)
     
     cost = models.IntegerField()
     data = datetime.date(datetime.now())
@@ -101,15 +101,15 @@ class Reparatie(models.Model):
 
     def stare_produs(self):
         data_curenta = datetime.date(datetime.now())
-        stare = Produs.objects.get(nume=self.produs_id)
+        produs = Produs.objects.get(nume=self.produs_id)
     
         if data_curenta < self.data_end and data_curenta >= self.data_start:
-            stare.status = "service"
-            stare.save()
+            produs.status = "service"
+            produs.save()
     
         elif data_curenta > self.data_end:
-            stare.status = "disponibil"
-            stare.save()
+            produs.status = "disponibil"
+            produs.save()
     
     class Meta:
         db_table = ''
@@ -217,7 +217,7 @@ class Contract(models.Model):
     nume_client = models.CharField(max_length=50)
     cnp = models.IntegerField()
     adresa_client = models.CharField(max_length=150)
-    adresa_livrare = models.CharField(max_length=150)
+    adresa_livrare = models.CharField(max_length=150, null=True)
     tel_client = models.BigIntegerField()
     mail_client = models.CharField(max_length=50)
     banca_client = models.CharField(max_length=50, null=True)
@@ -229,7 +229,7 @@ class Contract(models.Model):
     nr_zile = models.IntegerField()
     data_start = models.DateField()
     data_end = models.DateField()
-    pdf_path = models.FileField(upload_to='hireman/static/contracte_pdf/', null=True, default=f"hireman/static/contracte_pdf/contract-nr{nr_contract}-din:{timezone.now().date}")
+    pdf_path = models.FileField(upload_to='hireman/static/contracte_pdf/', null=True, default=f"hireman/static/contracte_pdf/contract-nr{nr_contract}-din:{timezone.now()}")
     
     # ZILE = (("1", "1 zi"), ("2", "2 zile"), ("3", "3 zile"), ("4", "4 zile"), ("5", "5 zile"), ("w", "weekend"), ("s", "o saptamana"))
     # perioada = models.CharField(choices=ZILE, default=1, max_length=50)
@@ -246,7 +246,9 @@ class Contract(models.Model):
         data2 = datetime.date(datetime.now())
         if data2 < self.data_start:
             return f"Programat la {self.data_start}"
-        elif data2 == self.data_start or (self.data > self.data_start and self.data <= self.data_end):
+        elif data2 == self.data_end:
+            return f"Finalizat azi"
+        elif data2 == self.data_start or (self.data >= self.data_start and self.data <= self.data_end):
             return f"Se deruleaza"
         elif data2 > self.data_end:
             return f"Finalizat"
@@ -254,10 +256,17 @@ class Contract(models.Model):
             return"null"
         
     def Schimba_status_produs(self):
-        produs = Produs.objects.get(slug = self.produs)
-        produs.status = "nedisponibil"
-        produs.save()
-        print(f"statusul produsului {produs} este {produs.status}")
+        data2 = datetime.date(datetime.now())
+        if data2 < self.data_end:
+            produs = Produs.objects.get(slug = self.produs)
+            produs.status = "nedisponibil"
+            produs.save()
+            # print(f"statusul produsului {produs} este {produs.status}")
+        elif data2 >= self.data_end:
+            produs = Produs.objects.get(slug = self.produs)
+            produs.status = "disponibil"
+            produs.save()
+            # print(f"statusul produsului {produs} este {produs.status}")
         
         
     class Meta:
@@ -270,7 +279,7 @@ class Contract(models.Model):
     def __str__(self):
         self.Status()
         self.Schimba_status_produs()
-        return f"Contract nr.{self.nr_contract} din {self.data}" 
+        return f"Contract nr.{self.pk} din {self.data}" 
     
     
 # class MeniuBar(models.Model):

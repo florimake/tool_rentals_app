@@ -69,11 +69,23 @@
                         <th> {{total_plata}} Ron</th>
                     </tr>
                 </table>
-                <form action="factura">
+                <form action="../../details/" method="post" style="width: 100%">
+                    {% csrf_token %}
                     <h4>
-                        <label for="factura">Plata cash cu chitanta</label>
-                        <input type="checkbox" name="factura" id="factura" checked>
+                        <label for="factura">Platesc cu cardul</label>
+                        <input type="checkbox" name="factura" id="factura" value="cash" onclick="plataCard()">
                     </h4>
+                    <div id="plata_card" style="display:none; color:blue; width:50%; flex-direction:column;">
+                        <p id="banca" >Introduceti datele cardului: </p>
+                        <div>
+                            <label for="">Banca: </label><br><input type="text" name="banca">
+                        </div>
+                        <div>
+                            <label for="">Contul: </label><br><input type="text" name="contul">
+                        </div>
+                    </div><br><br>
+                    <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
+                    <button type="submit" value="{{nr_contract}}" name="contract-nr" style='width:150px; height:30px'>Salveaza contract</button>
                 </form>
             </div>
             <div class="tabel_anexa_dr">
@@ -82,11 +94,14 @@
         </div>
 
     </div>
+{% comment %} 
     <div id="contract_buttons">
         <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
-        <button type="submit"  style='width:150px; height:30px'>Mai departe</button>
+        <form action="../../details">
+            <button type="submit" value="{{nr_contract}}" name="contract-nr" style='width:150px; height:30px'>Salveaza contract</button>
+        </form>
     </div>
-    
+     {% endcomment %}
     
     {% comment %} {{forms}}
     {% for form in forms %}
@@ -104,7 +119,17 @@
     {% comment %} <br><br>
     <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
 
-
+<script>
+    function plataCard() {
+        var checkBox = document.getElementById("factura");
+        var div = document.getElementById("plata_card");
+        if (checkBox.checked == true){
+            div.style.display = "flex";
+        } else {
+            div.style.display = "none";
+        }
+    }
+</script>
 
 
 {% endblock contract_details %}
