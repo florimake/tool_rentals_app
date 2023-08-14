@@ -56,58 +56,25 @@
                     <th>{{produs.pret.pret_s}}</th>
                     <th>{{produs.garantie}}</th>
                 </tr>
-                {% comment %} <tr>
-                    <th><input type="checkbox" name="pret_1" id="pret_1"></th> 
-                    <th><input type="checkbox" name="pret_2" id="pret_2"></th> 
-                    <th><input type="checkbox" name="pret_3" id="pret_3"></th> 
-                    <th><input type="checkbox" name="pret_4" id="pret_4"></th> 
-                    <th><input type="checkbox" name="pret_5" id="pret_5"></th> 
-                    <th><input type="checkbox" name="pret_w" id="pret_w"></th> 
-                    <th><input type="checkbox" name="pret_s" id="pret_s"></th> 
-                    <th></th>
-                </tr> {% endcomment %}
             </table>
-            {% comment %} <p><b>Bifeaza perioada de inchiriere si treci la pasul urmator</b></p> {% endcomment %}
+          
             <br><br>
             <p>Inchiriaza acest produs: <b>{{produs.nume}}</b></p>
             <button onclick="history.back()">inapoi</button>
             &emsp;&emsp;&emsp;
             <a href="/{{produs.slug}}/client ">
-                <button type="button" style='width:120px; height:30px'>Incheie contract</button>
+                <button type="button" style='{{display}}; width:120px; height:30px'>Incheie contract</button>
             </a>
             &emsp;&emsp;&emsp;
-            <a href="">
-                <button type="button" style='width:120px; height:30px'>Services</button>
+            <a href="/{{produs.slug}}/service">
+                <button type="button" style='{{display}}; width:120px; height:30px'>Services</button>
             </a>
+            <span>{{data_end}}</span>
         </div>
     </div>
     
     
 </div>
-    
-    {% comment %} <br><br>
-    <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% endblock product_details %}
 

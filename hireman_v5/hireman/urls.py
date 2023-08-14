@@ -29,6 +29,7 @@ urlpatterns = [
     path("category/<slug>", view_products_category),
     path('test/', lambda _: HttpResponse('MERGE')),
     path("<slug>/client/", view_client_details, name="client_details"),
+    path("<slug>/service/", view_service_details, name="service_details"),
     path("client/", view_client_details, name="client_details"),
     path("<slug>/client/contract_details", view_contract_details, name="contract_details"),
     path("<slug>/client/termeni_contract", view_termeni_contract, name="termeni_contract"),

@@ -1,26 +1,120 @@
 {% extends "main.html" %}
 {% load static %}
 {% block product_details %}
-
     <h3 style='color: green'>{{mesaj}}</h3>
-    <h2>Informatii utile ...</h2>
-    <ul>Todo details site : <br><br>
-        <li>Informatii despre Societate</li>
-        <li>adrese utile, facebook, instagram, linktin</li>
-        <li>Echipamente inchiriate, pana la ce data</li>
-        <li>lista de clienti</li>
-        <li>detalii despre contracte in desfasurare</li>
-    </ul>
-    <h2>Contracte</h2>
-    <ul>
-        {% for contract in contracte %}
-            <li>{{contract}}</li>
-        {% endfor %}
-    </ul>
-    
+    <div id="product_details">
+        
+        <div class="stanga">
+            <h2>Informatii utile ...</h2>
+            <p>
+                <b>Informatii despre Societate:</b><br><br>
+                &emsp; Firma <b>{{srl}}</b> cu sediul social în <b>{{srl.adresa}}</b>, înregistrată la Registrul Comerţului sub <b>RO {{srl.cui}}</b>, 
+                având cont bancar <b>{{srl.banca}}</b> cont <b>{{srl.cont}}</b>, reprezentant legal, <b>{{srl.director}}</b>, în calitate de Administrator, denumit în continuare  <b>PRESTATOR</b>. 
+            </p>
+            <br>
+            <table id= "details_table">
+                <tr>
+                    <th colspan= 5>
+                        <h2>Ultimele 15 contracte incheiate</h2>
+                        <a href="../admin/hireman/contract/">
+                            <button>Vezi in baza de date</button>
+                        </a>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Nr. Contract</th>
+                    <th>Din data</th>
+                    <th>Terminat la data</th>
+                    <th>Garantie</th>
+                    <th>Incasat</th>
+                </tr>
+                {% for contract in contract_details %}
+                    <tr>
+                        <td>{{contract.pk}}</td>
+                        <td>{{contract.data_start}}</td>
+                        <td>{{contract.data_end}}</td>
+                        <td>{{contract.garantie_produs}} Ron</td>
+                        <td>{{contract.cost}} Ron</td>
+                    </tr>    
+                {% endfor %}
+                <tr>
+                    <th colspan= 4>
+                        <b>Castiguri luna aceasta</b>
+                        <td>
+                            <b>{{total_incasat}} Ron</b>
+                        </td>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan= 4>
+                        <b>Castiguri TOTALE din inchirieri</b>
+                        <td>
+                            <b>{{total_general}} Ron</b>
+                        </td>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div class="dreapta">
 
+            <h4>Scurtaturi catre situri de socializare: </h4>
+            <div class="socializare">
+                
+                <a href="https://www.facebook.com/">
+                    <button type="submit"><i class="fa fa-facebook"></i></button>
+                </a>
+                <a href="https://www.youtube.com/watch?v=UWjWFLeX90Q">
+                    <button type="submit"><i class="fa fa-youtube"></i></button>
+                </a>
+                <a href="https://twitter.com/">
+                    <button type="submit"><i class="fa fa-twitter"></i></button>
+                </a>
+                <a href="https://www.linkedin.com/?original_referer=">
+                    <button type="submit"><i class="fa fa-linkedin"></i></button>
+                </a>
+                <a href="https://www.reddit.com/?rdt=57074">
+                    <button type="submit"><i class="fa fa-reddit"></i></button>
+                </a>
+            </div>
+            <table id= "details_table">
+                <tr>
+                    <th colspan= 3>
+                        <h3> Cele mai inchiriate 10 produse</h3>
+                        <a href="../admin/hireman/produs/">
+                            <button>Vezi in baza de date</button>
+                        </a>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Imagine</th>
+                    <th>Denumire produs</th>
+                    <th>Inchirieri</th>
+                </tr>
+                {% for k, v in produse_inchiriate %}
+                    <tr>
+                        <td>
+                            <a href="../{{k.poza}}">
+                                <img src="/{{k.poza}}" hight="50px" width="50px" alt="Poza produs">
+                            </a>
+                        </td>
+                        <td >
+                            <a href="../products/{{k.slug}}">{{k.nume}}</a>
+                        </td>
+                        <td>{{v}} pers</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            
+                    
+                
+            </div id= "details_table">
+        </div>
+    </div>
     <br><br>
-    <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px">
+    {% comment %} <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
 
 
 {% endblock product_details %}
+{% comment %} 
+                        
+{% endcomment %}

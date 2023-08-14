@@ -15,11 +15,8 @@
     </style>
 </head>
 
-
 <body>
-    
     <div class="container_left">
-
         <div id="clock">
             {% comment %} <h2><span id="live_time"></span></h2> {% endcomment %}
             <h3><span id='data'></span>
@@ -33,7 +30,6 @@
                 <a href="https://www.postermywall.com/index.php/art/template/08a90705dc649cb0fad947c571902c99/buy-one-get-one-free-logo-design-template">
                     <img src='{% static "img/logo3.jpg" %}' alt="" sizes="" srcset="">
                 </a>
-                
             </div>
         </div>
         <span style='margin-top:5px'>S.C. SOCIETATE S.R.L</span>
@@ -48,7 +44,6 @@
             </li>          
             <br>
         {% endfor %}      
-
     </div>
 
     <div id="header" class="header">
@@ -61,12 +56,10 @@
             </a>
         {% endfor %}
         </div>
-        
     </div>
 
 
     <div class="container_center">
-        
         <div>{% block home %}    
             {% endblock home %}</div>
 
@@ -84,6 +77,9 @@
 
         <div>{% block client_details %}    
             {% endblock client_details %}</div>
+            
+        <div>{% block service_details %}    
+            {% endblock service_details %}</div>
 
         <div>{% block contract_details %}    
             {% endblock contract_details %}</div>
@@ -92,8 +88,6 @@
             {% endblock termeni_contract %}</div>
     </div>
 
-
-
     <div class="container_right"> 
         <h2>Inchirieri utilaje casa si gradina</h2>
         <br><br>
@@ -101,50 +95,28 @@
         {% comment %} <h3>Cele mai inchiriate luna asta:</h3> {% endcomment %}
         <h3>Cele mai inchiriate:</h3>
         <div class="most_popular">
-            <ul>
-                <img src="{% static 'media/Gaurire-si-demolare-poza-3_1.jpg' %}" alt="">
-                <span>Cate persoane au inchiriat</span>
-            </ul>
-            <br>
-            <ul>
-                <img src="{% static 'media/Betonare-si-compactare-poza-3.png' %}" alt="">
-                <span>18 de persoane au inchiriat</span>
-            </ul>
-            <br>
-            <ul>
-                <img src="{% static 'media\Gresie-si-faianta-poza-1.png' %}" alt="">
-                <span>15 de persoane au inchiriat</span>
-            </ul>
+            {% for produs in produse_populare %}
+                <ul>
+                    {% for p in produs %}
+                        {% if p > 1 %}
+                            <span>{{p}} de persoane au inchiriat</span>
+                        {% else %}
+                            <img src="/{{p.poza}}" alt="">
+                            <span><b>{{p|safe}}</b></span>
+                        {% endif %}
+                    {% endfor %}
+                    <br><br>
+                </ul>
+            {% endfor %}
         </div>
-        
+
     </div>
-    
-
-
-
-
-
-
 
 </body>
 
 <script src="{% static 'script/main.js'%}"></script>
 
 <script>
-    
-
-{% comment %} var datetime = new Date(); {% endcomment %}
-{% comment %} console.log(datetime); {% endcomment %}
-{% comment %} document.getElementById("time").textContent = time; //it will print on html page {% endcomment %}
-{% comment %} function refreshTime() {
-    const timeDisplay = document.getElementById("time");
-    const dateString = new Date().toLocaleString();
-    const formattedString = dateString.replace(", ", " - ");
-    timeDisplay.textContent = formattedString;
-}
-setInterval(refreshTime, 1000); {% endcomment %}
-
-
 
 var live_time = document.getElementById('time');
 
@@ -160,7 +132,7 @@ function time() {
 var live_date = document.getElementById('data');
 
 function time() {
-    var isziua = new Array("Duminica", "Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica");
+    var isziua = new Array("Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica");
     if (isziua[dd] == "Duminica") {
         live_date.style.color = "red" 
     } if (isziua[dd] == "Sambata") {
@@ -172,7 +144,8 @@ function time() {
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
-    live_date.textContent = isziua[dd]+ ': ' + ("0" + dd).substr(-2) + "-" + ("0" + mm).substr(-2) + "-" + ("0" + yyyy).substr(-4);
+    live_date.textContent = "Data"+ ': ' + ("0" + dd).substr(-2) + "-" + ("0" + mm).substr(-2) + "-" + ("0" + yyyy).substr(-4);
+    console.log(dd)
 }
 
 setInterval(time, 1000);

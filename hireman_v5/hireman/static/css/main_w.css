@@ -100,7 +100,8 @@ h2, h1, h3, h4{
 .button_client,
 .contract_details button,
 .termeni_contract_details button,
-.formular_client button {
+.formular_client button,
+.button_service {
     width: 5vw;
     min-height: 30px;
     min-width: 150px;
@@ -119,7 +120,8 @@ h2, h1, h3, h4{
 .button_client:hover,
 .contract_details button:hover,
 .termeni_contract_details button:hover,
-.formular_client button:hover {
+.formular_client button:hover, 
+.button_service:hover {
     cursor: pointer;
     transform: scale(1.1) ; 
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.39);
@@ -134,7 +136,8 @@ h2, h1, h3, h4{
 .button_client:active,
 .contract_details button:active,
 .termeni_contract_details button:active,
-.formular_client button:active {
+.formular_client button:active,
+.button_service:active {
     cursor: pointer;
     transform: scale(1.0);
 }
@@ -335,14 +338,16 @@ h2, h1, h3, h4{
 
 /* .most_popular img */
 
-.client_details {
+.client_details, 
+.service_details {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.formular_client table tr{
+.formular_client table tr,
+.formular_service table tr {
     width: 300px;
     align-items: center;
     table-layout: fixed;
@@ -354,11 +359,13 @@ h2, h1, h3, h4{
 }
 /* detalii_produs */
 
-.formular_client table{
+.formular_client table,
+.formular_service table {
     border: 1px solid black;
 }
 
-.formular_client th {
+.formular_client th,
+.formular_service th  {
     width: 300px;
     text-align: left;
     padding: 5px;
@@ -366,7 +373,10 @@ h2, h1, h3, h4{
 
 .formular_client input, 
 .formular_client select, 
-.formular_client span {
+.formular_client span,
+.formular_service input, 
+.formular_service select, 
+.formular_service span {
     width: 300px;
     text-align: center;
 } 
@@ -425,7 +435,7 @@ h2, h1, h3, h4{
 .contract_details{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     text-align: center;
     padding: 0%;
 }
@@ -434,4 +444,114 @@ h2, h1, h3, h4{
     flex-direction: row;
     justify-content: space-evenly;
     padding-bottom: 50px;
+}
+
+
+
+#product_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: left;
+    padding-left: 2%;
+}
+#product_details .stanga {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    width: 50%;
+}
+#product_details .stanga p{
+    padding: 5px;
+    margin-left: 15px;
+}
+#product_details .dreapta{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+#product_details .dreapta{
+    display: flex;
+    flex-direction: column;
+}
+#details_table {
+    border: #030303 solid 1px;
+    border-collapse: collapse;
+    width: 95%;
+ 
+}
+#details_table th,
+#details_table td {
+    width: auto!important;
+    border: #030303 solid 1px;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 15px;
+    max-width: 200px;
+}
+.socializare {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 3% 0;    
+}
+
+#details_table a,
+#details_table td{
+    font-style: unset;
+    text-decoration: none;
+    color: #030303;
+    font-size: small;
+    padding: 5px;
+}
+.dreapta #details_table td{
+    height: 58px;
+}
+#details_table a:hover{
+    text-decoration: underline solid;
+    font-size: large;
+    font-size-adjust: inherit;
+    transform: scale(1.1) ; 
+    cursor: pointer;
+    text-shadow: 0 0 1px rgb(32, 32, 32);
+    transition: 300ms;
+}
+
+
+.socializare button{
+    height: 40px;
+    width: 40px;
+    border-radius: 15px ;
+    border-style: none;
+    color: rgb(255, 252, 245);
+    background-color: #030303;
+    font-size: 25px;
+}
+
+#details_table button{
+    height: 30px;
+    width: 150px;
+    border-radius: 5px;
+    /* border-style: none; */
+    color: rgb(0, 0, 0);
+    background-color: #f5f8ffb0;
+}
+.socializare button:hover,
+#details_table button:hover {
+    
+    transform: scale(1.1) ; 
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.39);
+}
+
+.socializare button:active,
+#details_table button:active {
+    cursor: pointer;
+    transform: scale(1.0);
 }
