@@ -59,6 +59,25 @@ def cele_mai_inchiriate(index=None):
             return [[Produs.objects.get(slug=k),v] for k, v in sorted_keys.items()][0:xlen]
 
 
+#verificare statusul produselor
+def check_produs_status():
+    
+    contracte = [contract for contract in Contract.objects.all()]
+    reparatii = [reparatie for reparatie in Reparatie.objects.all()]
+    for contract in [c for c in contracte if c.data_end > data]:
+        contract.Schimba_status_produs()
+        contract.save()
+    for reparatie in [r for r in reparatii if (data <= r.data_end)]:
+        reparatie.stare_produs()
+        reparatie.save()
+    contracte = [c.produs for c in contracte if data < c.data_end]
+    reparatii = [(r.produs_id, r.data_start) for r in reparatii if data < r.data_end]
+    print("\n", data, " >>> ", "check_produs_status()", {"reparatie":reparatii, "contracte": contracte})
+    print(f"{len(contracte)} >>> inchiriate >>> nedisponibile")
+    print(f"{len(reparatii)} >>> in service >>> service")
+    return {"reparatie":reparatii, "contracte": contracte}
+
+
 # Global context care se aplica pentru toate paginile
 request = None
 CONTEXT_GLOBAL = {
@@ -68,6 +87,7 @@ CONTEXT_GLOBAL = {
         "month_now": month,
         "day_now": day,
         "contracte_info": [c for c in Contract.objects.all() if data <= c.data_end][::-1][0:4],
+        # "contracte_info": [c for c in Contract.objects.all()[0:4]],
         "contracte": contracte[::-1],
         "produse_populare": cele_mai_inchiriate(3),
     }
@@ -77,6 +97,7 @@ def add_first_to_second_dict(first_dict, second_dict):
     """  Aceasta functie are nevoie de doua dictionare:
     - concateneaza/adauga first_dict in second_dict
     - returneaza second_dict  """
+    
     for key, value in first_dict.items():
         second_dict[key] = value
     return second_dict
@@ -96,6 +117,7 @@ service_save = {}
 ############################################################### MAIN #################################################################
 def view_main(request):
     cele_mai_inchiriate()
+    check_produs_status()
     context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "main.html", context)
@@ -116,12 +138,13 @@ def view_category(request):
 ############################################################# PRODUCTS ###############################################################
 def view_products(request):
     cele_mai_inchiriate()
+    check_produs_status()
+    
+    Contract.objects.get
+    
     global service_save, contracte
     contracte = [contract for contract in Contract.objects.all()]
     Reparatie.objects.get
-    c = [x.Schimba_status_produs() for x in Contract.objects.all()][0]
-    r = [r.stare_produs() for r in Reparatie.objects.all()][0]
-    # print(f"c: {c}, r: {r}")
     
     if request.method == 'GET':
         rezultat = []
@@ -194,6 +217,7 @@ def view_products_category(request, slug=None):
     global contracte
     contracte = [contract for contract in Contract.objects.all()]
     cele_mai_inchiriate()
+    check_produs_status()
     
     Reparatie.objects.get
     Contract.objects.get
@@ -218,10 +242,13 @@ def view_products_category(request, slug=None):
 
 ########################################################## PRODUCT DETAILS ############################################################
 def view_product_details(request, slug=None):
+    
+    global contracte
+    # check_produs_status()
+    # cele_mai_inchiriate()
     if slug != None:
         spec = get_object_or_404(Produs, slug=slug).specificatii
         produs_selectat = Produs.objects.get(slug=slug)
-        
         # ferificare status si preluarea datei cand se termina perioada
         if produs_selectat.status == "disponibil" :
             add_first_to_second_dict({
@@ -229,19 +256,24 @@ def view_product_details(request, slug=None):
                     "display": " ",
                 }, CONTEXT_GLOBAL)
         elif produs_selectat.status == "nedisponibil" :
-            data_end_contract = Contract.objects.get(pk = produs_selectat.pk).data_end
-            print(data_end_contract)
-            add_first_to_second_dict({
-                    "data_end": f"Disponibil de pe {data_end_contract + timedelta(days=1)}",
-                    "display": "display: none",
-                }, CONTEXT_GLOBAL)
+            data_end_contract = Contract.objects.filter(produs = produs_selectat.slug)
+            for contract in data_end_contract:
+                if contract.data_end > data:
+                    add_first_to_second_dict({
+                            "data_end": f"Disponibil de pe {contract.data_end + timedelta(days=1)}",
+                            "display": "display: none",
+                        }, CONTEXT_GLOBAL)
         elif produs_selectat.status == "service" :
-            data_end_service = Reparatie.objects.get(produs_id = produs_selectat.pk).data_end
-            print(data_end_service)
-            add_first_to_second_dict({
-                    "data_end": f"Disponibil de pe {data_end_service + timedelta(days=1)}",
-                    "display": "display: none",
-                }, CONTEXT_GLOBAL)
+            data_end_reparatie = Reparatie.objects.filter(produs_id = produs_selectat.pk)
+            print(data_end_reparatie)
+            for service in data_end_reparatie:
+                if service.data_end > data:
+                    print(service.data_end)
+                    add_first_to_second_dict({
+                            "data_end": f"Disponibil de pe {service.data_end + timedelta(days=1)}",
+                            "display": "display: none",
+                        }, CONTEXT_GLOBAL)
+                    
             
         print(f'product_details: {produs_selectat}')
         
@@ -261,7 +293,9 @@ def view_product_details(request, slug=None):
 ############################################################## DETAILS ################################################################
 def view_details(request):
     global last_contract, contracte, month
-        
+    # cele_mai_inchiriate()
+    # check_produs_status()
+    
     get = request.GET
     key_get = [k for k, v in get.items()]
     value_get = [v for k, v in get.items()]
@@ -284,6 +318,7 @@ def view_details(request):
     contracte = [c.Schimba_status_produs() for c in Contract.objects.all()][-1]
     # print(contracte)
     
+    
     if len(key_get) > 0:
         print(f"Sa salvat: {key_get[0]} {value_get[0]}")    
         context = {
@@ -295,7 +330,8 @@ def view_details(request):
             "srl" : Societate.objects.get(),
         }
         # print(last_contract)
-            
+        last_contract = {}
+        
     if request.method == 'POST':
             rq = request.POST
             last_contract["banca_client"] = rq["banca"]
@@ -337,6 +373,8 @@ def view_details(request):
             
             contract.save()
             contract.Schimba_status_produs()
+            last_contract.clear()
+            print(f"last_contract: {last_contract}")
             context = {
                 "mesaj": f"Sa salvat cu succes: Contractul nr. {contract.pk}",
                 'produse_inchiriate':dict(produse_inchiriate).items(),
@@ -345,10 +383,10 @@ def view_details(request):
                 'total_general': total_geberal,
                 "srl" : Societate.objects.get(),
             }
-    
+            
             clienti = Client.objects.all()
             save = bool([x for x in clienti if x.cnp == int(last_contract["cnp"])])
-            # print(save)
+            print(save)
             if not save:
                 client = Client(
                     nume = last_contract["nume_client"],
@@ -371,6 +409,9 @@ def view_home(request):
     global contracte
     contracte = [contract for contract in Contract.objects.all()]
     cele_mai_inchiriate()
+    check_produs_status()
+    print(CONTEXT_GLOBAL["contracte_info"])
+    
     
     context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
@@ -380,6 +421,7 @@ def view_home(request):
 
 ########################################################## CLIENT DETAILS #############################################################
 def view_client_details(request, slug=None):
+    # check_produs_status()
     print(f" - Open view_client_details() => succes")
     if slug != None:
         print(f"- request POST => accepted")
@@ -400,7 +442,8 @@ def view_client_details(request, slug=None):
 
 ########################################################## CONTRACT DETAILS ###########################################################
 def view_contract_details(request, slug=None):
-    cele_mai_inchiriate()
+    # cele_mai_inchiriate()
+    # check_produs_status()
     global last_contract 
     # last_contract = {}
     td = time_date.date()

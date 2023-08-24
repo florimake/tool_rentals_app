@@ -22,7 +22,6 @@ urlpatterns = [
     path('', view_home, name="home"),
     path("category/", view_category),
     path("products/", view_products, name="products"),
-    # path("product_details/", view_product_details, name="product_details"),
     path("details/", view_details, name="details"),
     path("home/", view_home, name="home"),
     path("products/<slug>/", view_product_details),

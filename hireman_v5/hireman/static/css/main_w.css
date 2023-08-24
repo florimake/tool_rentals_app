@@ -464,7 +464,8 @@ h2, h1, h3, h4{
 }
 #product_details .stanga p{
     padding: 5px;
-    margin-left: 15px;
+    padding-right: 25px;
+    text-align: justify;
 }
 #product_details .dreapta{
     display: flex;
@@ -530,7 +531,7 @@ h2, h1, h3, h4{
     border-radius: 15px ;
     border-style: none;
     color: rgb(255, 252, 245);
-    background-color: #030303;
+    background-color: #5a5a5a;
     font-size: 25px;
 }
 

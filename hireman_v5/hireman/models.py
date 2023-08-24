@@ -103,13 +103,15 @@ class Reparatie(models.Model):
         data_curenta = datetime.date(datetime.now())
         produs = Produs.objects.get(nume=self.produs_id)
     
-        if data_curenta < self.data_end and data_curenta >= self.data_start:
+        if data_curenta <= self.data_end and data_curenta >= self.data_start:
             produs.status = "service"
             produs.save()
+            # print(f"statusul produsului {produs} este {produs.status}")
     
-        elif data_curenta > self.data_end:
+        elif data_curenta >= self.data_end:
             produs.status = "disponibil"
             produs.save()
+            # print(f"statusul produsului {produs} este {produs.status}")
     
     class Meta:
         db_table = ''
@@ -262,11 +264,13 @@ class Contract(models.Model):
             produs.status = "nedisponibil"
             produs.save()
             # print(f"statusul produsului {produs} este {produs.status}")
+            # return produs.status
         elif data2 >= self.data_end:
             produs = Produs.objects.get(slug = self.produs)
             produs.status = "disponibil"
             produs.save()
             # print(f"statusul produsului {produs} este {produs.status}")
+            # return produs.status
         
         
     class Meta:

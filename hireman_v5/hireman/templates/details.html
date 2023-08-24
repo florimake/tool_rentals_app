@@ -14,7 +14,7 @@
             <br>
             <table id= "details_table">
                 <tr>
-                    <th colspan= 5>
+                    <th colspan= 6>
                         <h2>Ultimele 15 contracte incheiate</h2>
                         <a href="../admin/hireman/contract/">
                             <button>Vezi in baza de date</button>
@@ -24,6 +24,7 @@
                 <tr>
                     <th>Nr. Contract</th>
                     <th>Din data</th>
+                    <th>Client</th>
                     <th>Terminat la data</th>
                     <th>Garantie</th>
                     <th>Incasat</th>
@@ -32,6 +33,7 @@
                     <tr>
                         <td>{{contract.pk}}</td>
                         <td>{{contract.data_start}}</td>
+                        <td>{{contract.nume_client}}</td>
                         <td>{{contract.data_end}}</td>
                         <td>{{contract.garantie_produs}} Ron</td>
                         <td>{{contract.cost}} Ron</td>
