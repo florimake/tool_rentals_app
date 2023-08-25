@@ -1,0 +1,64 @@
+
+{% extends "main.html" %}
+{% load static %}
+{% block db_contracte %}
+    
+    <div class="db_contracte">
+        <h1>Database Contracte</h1>
+        <button onclick="history.back()" class="fa fa-long-arrow-left"></button>
+        <h3>Mai jos sunt afisate toate contractele incheiate </h3>
+        <table>
+            <tr>
+                <th>Contract</th>
+                <th>Incheiat</th>
+                <th>Client</th>
+                <th>Adresa</th>
+                <th>Produs slug</th>
+                <th>Cost</th>
+                <th>Vizualizare</th>
+                <th>Printeaza</th>
+            </tr>
+            {% for contract in contracte %}
+                {% if contract.data_end <= data %}
+                <tr style="background-color:  rgba(46, 255, 151, 0.24);">
+                    <td>{{contract}}</td>
+                    <td>{{contract.data_end}}</td>
+                    <td>{{contract.nume_client}}</td>
+                    <td>{{contract.adresa_livrare}}</td>
+                    <td>{{contract.produs}}</td>
+                    <td>{{contract.cost}} Ron</td>
+                    <td>
+                        <a href="../contracte/{{contract.pk}}">
+                            <button type="submit"><i class="fa fa-eye"></i></button>
+                        </a>
+                    </td>
+                    <td>
+                        <button type="submit"><i class="fa fa-print"></i></button>
+                    </td>
+                </tr>
+                {% else %}
+                <tr style="background: rgb(216, 216, 216); color: red">
+                    <td>{{contract}}</td>
+                    <td>{{contract.data_end}}</td>
+                    <td>{{contract.nume_client}}</td>
+                    <td>{{contract.adresa_livrare}}</td>
+                    <td>{{contract.produs}}</td>
+                    <td>{{contract.cost}} Ron</td>
+                    <td>
+                        <a href="../contracte/{{contract.pk}}">
+                            <button type="submit"><i class="fa fa-eye"></i></button>
+                        </a>
+                    </td>
+                    <td>
+                        <button type="submit"><i class="fa fa-print"></i></button>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        
+        
+    </div>
+    <br><br>
+    <button onclick="history.back()" class="fa fa-long-arrow-left"> </button>
+{% endblock db_contracte %}

@@ -616,3 +616,34 @@ def view_imagine(request, poza):
     print(img)
     return render(request, "img.html", context)
 ############################################################## IMAGINE ################################################################
+
+######################################################### DB CONTRACTE ############################################################
+def view_db_contracte(request):
+    print(f" - Open view_db_contracte() => succes") 
+    
+    context = {
+        "data": time_date.date(),
+    }
+    print(time_date.date())
+    add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    return render(request, "db_contracte.html", context)
+######################################################### DB CONTRACTE ############################################################
+
+######################################################### CONTRACT PREVIEW ############################################################
+def view_contract_preview(request, pk):
+    print(f" - Open view_contract_preview() => succes") 
+    if pk != None:
+        contract = get_object_or_404(Contract, pk=pk)
+        context = {
+            "contract": contract ,
+            "srl" : Societate.objects.get(),
+            "produs": Produs.objects.get(slug=get_object_or_404(Contract, pk=pk).produs),
+            "total_plata":contract.garantie_produs + contract.cost,
+            
+        }
+        
+    else: 
+        context = {}
+    add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    return render(request, "contract_preview.html", context)
+######################################################### CONTRACT PREVIEW ############################################################

@@ -321,7 +321,7 @@ h2, h1, h3, h4{
     align-items: center;
     table-layout: fixed;
     padding: 5px;
-    background-color: rgba(108, 133, 167, 0.24);
+    background-color: rgba(108, 167, 138, 0.24);
     color: #030303;
 }
 
@@ -555,4 +555,15 @@ h2, h1, h3, h4{
 #details_table button:active {
     cursor: pointer;
     transform: scale(1.0);
+}
+
+.db_contracte tr{
+    text-align: center;
+    align-items: center;
+}
+
+.contract_preview {
+    align-items: center;
+    text-align: center;
+    padding: 50px;
 }
