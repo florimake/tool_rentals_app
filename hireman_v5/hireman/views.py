@@ -90,6 +90,7 @@ CONTEXT_GLOBAL = {
         # "contracte_info": [c for c in Contract.objects.all()[0:4]],
         "contracte": contracte[::-1],
         "produse_populare": cele_mai_inchiriate(3),
+        "srl": Societate.objects.get(),
     }
 
 
@@ -302,7 +303,7 @@ def view_details(request):
     produse_afisate = 10
     produse_inchiriate = cele_mai_inchiriate(produse_afisate)
     
-    contracte = [contract for contract in Contract.objects.all()]
+    contracte = [contract for contract in Contract.objects.all()][::-1]
     total_incasat_luna_curs = [x.cost for x in contracte if x.data_end.month == month]
     total_geberal = sum([x.cost for x in contracte])
     # pprint(total_incasat_luna_curs)
@@ -311,12 +312,13 @@ def view_details(request):
             "mesaj": "",
             'produse_inchiriate':dict(produse_inchiriate).items(),
             'total_incasat': sum(total_incasat_luna_curs),
-            'contract_details': contract_details[:14],
+            'contract_details': contracte[:14],
             'total_general': total_geberal,
             "srl" : Societate.objects.get(),
+            "contracte_info": [c for c in Contract.objects.all() if data <= c.data_end][::-1][0:4],
         }
-    contracte = [c.Schimba_status_produs() for c in Contract.objects.all()][-1]
-    # print(contracte)
+    _ = [contract.Schimba_status_produs() for contract in Contract.objects.all()][-1]
+    print(contracte)
     
     
     if len(key_get) > 0:
@@ -373,7 +375,7 @@ def view_details(request):
             
             contract.save()
             contract.Schimba_status_produs()
-            last_contract.clear()
+            # last_contract.clear()
             print(f"last_contract: {last_contract}")
             context = {
                 "mesaj": f"Sa salvat cu succes: Contractul nr. {contract.pk}",
@@ -382,6 +384,7 @@ def view_details(request):
                 'contract_details': contract_details[:14],
                 'total_general': total_geberal,
                 "srl" : Societate.objects.get(),
+                "contracte_info": [c for c in Contract.objects.all() if data <= c.data_end][::-1][0:4],
             }
             
             clienti = Client.objects.all()
@@ -411,7 +414,6 @@ def view_home(request):
     cele_mai_inchiriate()
     check_produs_status()
     print(CONTEXT_GLOBAL["contracte_info"])
-    
     
     context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
@@ -623,8 +625,9 @@ def view_db_contracte(request):
     
     context = {
         "data": time_date.date(),
+        "contracte": Contract.objects.all(),
+        "produse": Produs.objects.all()
     }
-    print(time_date.date())
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "db_contracte.html", context)
 ######################################################### DB CONTRACTE ############################################################
@@ -636,14 +639,18 @@ def view_contract_preview(request, pk):
         contract = get_object_or_404(Contract, pk=pk)
         context = {
             "contract": contract ,
-            "srl" : Societate.objects.get(),
             "produs": Produs.objects.get(slug=get_object_or_404(Contract, pk=pk).produs),
             "total_plata":contract.garantie_produs + contract.cost,
-            
         }
-        
     else: 
         context = {}
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
     return render(request, "contract_preview.html", context)
 ######################################################### CONTRACT PREVIEW ############################################################
+
+    """
+    121 = (d*d)/2
+    (d*d) = 242
+    d = 242/d    
+    
+    """

@@ -7,25 +7,29 @@
         <h1>Database Contracte</h1>
         <button onclick="history.back()" class="fa fa-long-arrow-left"></button>
         <h3>Mai jos sunt afisate toate contractele incheiate </h3>
-        <table>
+        <table >
             <tr>
                 <th>Contract</th>
-                <th>Incheiat</th>
+                <th>Terminat</th>
                 <th>Client</th>
-                <th>Adresa</th>
-                <th>Produs slug</th>
+                <th>Adresa de livrare</th>
+                <th>Produs</th>
                 <th>Cost</th>
                 <th>Vizualizare</th>
                 <th>Printeaza</th>
             </tr>
             {% for contract in contracte %}
                 {% if contract.data_end <= data %}
-                <tr style="background-color:  rgba(46, 255, 151, 0.24);">
-                    <td>{{contract}}</td>
+                <tr style="background-color: rgba(238, 238, 238, 0.384);">
+                    <td>Nr. {{contract.pk}}</td>
                     <td>{{contract.data_end}}</td>
                     <td>{{contract.nume_client}}</td>
                     <td>{{contract.adresa_livrare}}</td>
-                    <td>{{contract.produs}}</td>
+                    <td>{% for x in produse %}
+                            {% if x.slug == contract.produs %}
+                                {{x}}
+                            {% endif %}
+                        {% endfor %}</td>
                     <td>{{contract.cost}} Ron</td>
                     <td>
                         <a href="../contracte/{{contract.pk}}">
@@ -38,11 +42,17 @@
                 </tr>
                 {% else %}
                 <tr style="background: rgb(216, 216, 216); color: red">
-                    <td>{{contract}}</td>
+                    <td>Nr. {{contract.pk}}</td>
                     <td>{{contract.data_end}}</td>
                     <td>{{contract.nume_client}}</td>
                     <td>{{contract.adresa_livrare}}</td>
-                    <td>{{contract.produs}}</td>
+                    <td>
+                        {% for x in produse %}
+                            {% if x.slug == contract.produs %}
+                                {{x}}
+                            {% endif %}
+                        {% endfor %}</td>
+                    </td>
                     <td>{{contract.cost}} Ron</td>
                     <td>
                         <a href="../contracte/{{contract.pk}}">
