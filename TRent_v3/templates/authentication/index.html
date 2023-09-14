@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication_css/index.css'%}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Authentication</title>
+    
+</head>
+<body>
+    <div class="header">
+        <div class="header_message">
+            {% comment %} Pentru a reda mesajele {% endcomment %}
+            {% for message in messages %}
+            <div id="header_text" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{message}}
+                {% comment %}                 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {% endcomment %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="header_user">
+            {% if user.is_authenticated %}
+                <div class="user_info" >
+                    {% comment %} <img src="{% static 'icons/profile_user.svg' %}" alt=" "> {% endcomment %}
+                    <h4> <span class="fa fa-user-circle" style="color:green"></span> {{user}}</h4>
+                    <a class="cart" href="">
+                        <span class="fa fa-opencart"> cart</span>
+                    </a>
+                    <a href="/signout">Sign out</a>
+                </div>
+            {% else %}
+                <div class="user_info">
+                    {% comment %} <img src="{% static 'icons/profile_user.svg' %}" alt=" "> {% endcomment %}
+                    <h4><span class="fa fa-user-circle" style="color:red"></span> Anonymous</h4>
+                    <a href="/signup">Signup</a>
+                    <a href="/signin">Login</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+    
+
+</body>
+</html>

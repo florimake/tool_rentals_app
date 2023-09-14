@@ -1,0 +1,80 @@
+{% extends "main.html" %}
+{% load static %}
+{% block product_details %}
+    
+<div class="product_details">
+    <h1>Detalii despre produs  ...</h1>
+    <h2>{{produs}}</h2>
+    <br>
+    <div class="caracteristici">
+        
+        <div class="stanga">
+            <h3 >Status produs: </h3>
+            <table id='produs_stanga_table'>
+                <th style='color:{{produs.status_color}}'>
+                    <b >{{produs.status}}</b> 
+                </th>
+                <p>{{data_end}}</p>
+            </table>
+            <br><br><br><br><br><br>
+            <img src="/{{produs.poza}}" hight="85%" width="85%" alt="Poza produs">
+        </div>    
+        
+        <div class="dreapta">
+            
+            <br>
+            <div class="descriere">
+                <h4>Descriere:</h4>
+                <p>{{produs.descriere}}</p>
+            </div>
+            <br>
+            <div class="specificatii">
+                <h4>Specificatii:</h4>
+                {% for spec in specificatii %}
+                    <li>{{spec}}</li>
+                {% endfor %}
+            </div>
+            <h4>Preturi:</h4>
+            <table>
+                <tr>
+                    <th>o zi</th>
+                    <th>2 zile</th>
+                    <th>3 zile</th>
+                    <th>4 zile</th>
+                    <th>5 zile</th>
+                    <th>pe weekend</th>
+                    <th>o saptamana</th>
+                    <th>garantie</th>
+                </tr>
+                <tr>
+                    <th>{{produs.pret.pret_1}}</th>
+                    <th>{{produs.pret.pret_2}}</th>
+                    <th>{{produs.pret.pret_3}}</th>
+                    <th>{{produs.pret.pret_4}}</th>
+                    <th>{{produs.pret.pret_5}}</th>
+                    <th>{{produs.pret.pret_w}}</th>
+                    <th>{{produs.pret.pret_s}}</th>
+                    <th>{{produs.garantie}}</th>
+                </tr>
+            </table>
+          
+            <br><br>
+            <p>Inchiriaza acest produs: <b>{{produs.nume}}</b></p>
+            <button onclick="history.back()">inapoi</button>
+            &emsp;&emsp;&emsp;
+            <a href="/{{produs.slug}}/client ">
+                <button type="button" style='{{display}}; width:120px; height:30px'>Incheie contract</button>
+            </a>
+            &emsp;&emsp;&emsp;
+            <a href="/{{produs.slug}}/service">
+                <button type="button" style='{{display}}; width:120px; height:30px'>Services</button>
+            </a>
+            <span>{{data_end}}</span>
+        </div>
+    </div>
+    
+    
+</div>
+
+{% endblock product_details %}
+

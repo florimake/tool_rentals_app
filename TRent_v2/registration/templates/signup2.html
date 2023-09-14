@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="{% static 'scripts.js' %}" defer></script>
+</head>
+<body>
+    <!--messages-->
+    <div class="messages">
+        <img class="message-icon" src="{% static './icons/sign.svg' %}" alt="error">
+        <div class="message">
+            <h3 class="message-title title">Error</h3>
+            <p class="message-paragraph">Something went wrong!</p>
+        </div>
+        <span class="message-close error">x</span>
+    </div>
+    <!--end messages-->
+    <h2>SingUp</h2>
+    <h4>Create acount</h4>
+    <div class="container">
+        <div class="center">
+            <form method="POST" action="." class="login-form spacer" id="signup-form">
+                {% csrf_token %}
+                <div class="input-group">
+                    <img class="icon input-icon" src="{% static 'icons/key.svg' %}" alt="no">
+                    {{form.username}}
+                    {% comment %} <input required name="username" id="username" type="text" class="form-input" placeholder=" username" maxlength="22" minlength="8"> {% endcomment %}
+                </div><br>
+                <div class="input-group">
+                    <img class="icon input-icon" src="{% static 'icons/key.svg' %}" alt="">
+                    {{form.email}}
+                    {% comment %} <input required name="password2" id="password2" type="mail.com" class="form-input" placeholder=" mail address" maxlength="22" minlength="8"> {% endcomment %}
+                </div><br>
+                <div class="input-group">
+                    <img class="icon input-icon" src="{% static 'icons/key.svg' %}" alt="">
+                    {{form.password1}}
+                    {% comment %} <input required name="password2" id="password2" type="password" class="form-input" placeholder=" password" maxlength="22" minlength="8"> {% endcomment %}
+                </div><br>
+                <div class="input-group">
+                    <img class="icon input-icon" src="{% static 'icons/key.svg' %}" alt="">
+                    {{form.password2}}
+                    {% comment %} <input required name="password2" id="password2" type="password" class="form-input" placeholder=" confirm password" maxlength="22" minlength="8"> {% endcomment %}
+                </div>
+                <br>
+                <input type="submit" class="submit" value="Signup">
+            </form>
+            <div class="redirect">
+                Already have an account?&nbsp;<a href="login.html" class="link">Login</a>
+                <br><br>
+                <a href="forgot-password.html" class="link">Forgot password?</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    
+
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_w.css'%}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Hireman</title>
+
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="container_left">
+        <div id="clock">
+            {% comment %} <h2><span id="live_time"></span></h2> {% endcomment %}
+            <h3><span id='data'></span>
+                <br>
+                <span>Ora </span><span id="time"></span>
+            </h3>
+        </div>
+    
+        <div id="logo">
+            <div class="logo1">    
+                <a href="https://www.postermywall.com/index.php/art/template/08a90705dc649cb0fad947c571902c99/buy-one-get-one-free-logo-design-template">
+                    <img src='{% static "img/logo3.jpg" %}' alt="" sizes="" srcset="">
+                </a>
+            </div>
+        </div>
+        <span style='margin-top:5px'>{{srl}}</span>
+        <br><br>
+        <h3>User status</h3>
+        {% if User.is_anonymous %}
+            <h4>user anonim</h4>
+        {% else %}
+            <h4>Nu este anonim???</h4>
+        {% endif %}
+        
+        <br>
+           
+    </div>
+
+    <div id="header" class="header">
+        <div id="header_body">
+            {% for b in butoane %}
+                <a href= /{{b}}>
+                    <button class="" type="button" > 
+                        {{b}}
+                    </button>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="container_center">
+        <div>{% block home %}    
+            {% endblock home %}</div>
+
+        <div>{% block products %}    
+            {% endblock products %}</div>
+
+        <div>{% block products_category %}    
+            {% endblock products_category %}</div>
+
+        <div>{% block category %}
+            {% endblock category %}</div>
+
+        <div>{% block product_details %}    
+            {% endblock product_details %}</div>
+
+        <div>{% block client_details %}    
+            {% endblock client_details %}</div>
+            
+        <div>{% block service_details %}    
+            {% endblock service_details %}</div>
+
+        <div>{% block contract_details %}    
+            {% endblock contract_details %}</div>
+
+        <div>{% block termeni_contract %}    
+            {% endblock termeni_contract %}</div>
+
+        <div>{% block db_contracte %}    
+            {% endblock db_contracte %}</div>
+
+        <div>{% block contract_preview %}    
+            {% endblock contract_preview %}</div>
+    </div>
+
+    <div class="container_right"> 
+        <h2>Inchirieri utilaje casa si gradina</h2>
+        <br><br>
+        {% comment %} <h1>Info panel </h1> {% endcomment %}
+        {% comment %} <h3>Cele mai inchiriate luna asta:</h3> {% endcomment %}
+        <h3>Cele mai inchiriate:</h3>
+        <div class="most_popular">
+            {% for produs in produse_populare %}
+                <ul>
+                    {% for p in produs %}
+                        {% if p > 1 %}
+                            <span>{{p}} de persoane au inchiriat</span>
+                        {% else %}
+                            <img src="/{{p.poza}}" alt="">
+                            <span><b>{{p|safe}}</b></span>
+                        {% endif %}
+                    {% endfor %}
+                    <br><br>
+                </ul>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+
+<script src="{% static 'script/main.js'%}"></script>
+
+<script>
+
+var live_time = document.getElementById('time');
+
+function time() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes();
+    var h = d.getHours();
+    live_time.textContent = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+    live_time.style.color = "green"
+}
+
+var live_date = document.getElementById('data');
+
+function time() {
+    var isziua = new Array("Luni", "Marti", "Miercuri", "Joi", "Vineri", "Sambata", "Duminica");
+    if (isziua[dd] == "Duminica") {
+        live_date.style.color = "red" 
+    } if (isziua[dd] == "Sambata") {
+        live_date.style.color = "orange" 
+    } else {
+        live_date.style.color = "green"
+    }
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    live_date.textContent = "Data"+ ': ' + ("0" + dd).substr(-2) + "-" + ("0" + mm).substr(-2) + "-" + ("0" + yyyy).substr(-4);
+    console.log(dd)
+}
+
+setInterval(time, 1000);
+</script>
+</html>

@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css'%}" />
+    <title>home</title>
+</head>
+<body>
+    <div class="header">
+        <div class="header_message">
+            {% comment %} Pentru a reda mesajele {% endcomment %}
+            {% for message in messages %}
+            <div id="header_text" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{message}}
+                {% comment %}                 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {% endcomment %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="header_user">
+            {% if user.is_authenticated %}
+                <div class="user_info" style="background-color: rgba(182, 250, 186, 0.173)">
+                    <img class="icon input-icon" src="{% static 'icons/profile-user.svg' %}" alt="">
+                    <h4>{{user}}</h4>
+                    <a href="/signout">Sign out</a>
+                </div>
+            {% else %}
+                <div class="user_info"style="background-color:  rgba(182, 218, 250, 0.173);">
+                    <img class="icon input-icon" src="{% static 'icons/profile-user.svg' %}" alt="">
+                    <h4>Anonim !!</h4>
+                    <a href="/signup">Signup</a>
+                    <a href="/login">Login</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="container">
+        <div>
+            {% block signup %}    
+            {% endblock signup %}</div>
+            {% block login %}    
+            {% endblock login %}</div>
+    </div>
+</body>
+</html>
