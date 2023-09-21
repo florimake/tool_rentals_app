@@ -1,0 +1,28 @@
+
+{% extends "main.html" %}
+{% load static %}
+{% block category %}
+
+    <div class="category">
+        <div class="category_top">
+            <h1>Category: </h1>
+            <p>Alege una dintre categoriile de mai jos</p>
+        </div>
+        <div class="itemuri">
+            {% for c in categorii %}
+                <a href="{{c.slug}}">
+                    <div class="item">
+                        <div>
+                            <img src = "../../{{c.poza}}" alt="" class="item_img">
+                        </div>
+                        <h3>{{c}}</h3>
+                    </div>
+                </a>
+            {% endfor %}
+            
+        </div>
+
+        
+    </div>
+    
+{% endblock category %}

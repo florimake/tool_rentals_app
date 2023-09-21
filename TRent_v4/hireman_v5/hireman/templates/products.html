@@ -1,0 +1,39 @@
+
+{% extends "main.html" %}
+{% load static %}
+{% block products %}
+    
+    <div class="products">
+        <div class="products_top">
+            <h1>Products: </h1>
+            <form action="">
+                <input type="text" placeholder="{{mesaj}}" name="search">
+                <button type="submit"class="fa fa-search"> </button>
+            </form>
+            <div class="text">
+                <p>Mai jos sunt afisate toate gama de produsele din stoc, <u>disponibile sau nedisponibile</u></p>
+                <p>Alege unul dintre produsele de mai jos si continua pentru finalizarea comenzii.</p>    
+            </div>
+        </div>
+        <div class="produse">
+            {% for produs in produse %}
+                <a href="{{produs.slug}}">
+                    <div class="produs">
+                        <img src = "../{{produs.poza}}" alt="" class="produs_img">
+                        <span>{{produs.pret}} RON / zi, <b style='color:{{produs.status_color}}'>{{produs.status}}</b></span>
+                        <p><b id="b">{{produs}}</b></p>
+                    </div>
+                </a>
+            {% endfor %}
+            
+        </div>
+
+    
+    </div>
+
+    {% comment %} <br><br>
+    <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
+
+
+
+{% endblock products %}

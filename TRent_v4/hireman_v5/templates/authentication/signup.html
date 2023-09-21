@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication_css/signin_signup.css'%}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Authentication</title>
+</head>
+<body>
+    {% comment %} Pentru a reda mesajele {% endcomment %}
+    {% for message in messages %}
+        <div class="message_alert">
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" >
+                {{message}}
+                <button class="close" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+    <h1 >SignUp</h1>
+    <div class="container_signup">
+        
+
+        <form action="/signup" method="post">
+            {% csrf_token %}
+            <div class="form_box">
+                <label for=""><span class="fa fa-user-circle"></span> Username</label>
+                <input type="text" name="username" id="username" placeholder=" Username" Required><br>
+                <label for=""><span class="fa fa-mail-forward"></span> email</label>
+                <input type="email" name="email" id="email" placeholder=" mail address" Required><br>
+                <label for=""><span class="fa fa-key"></span> Password</label>
+                <input type="password" name="pass1" id="pass1" placeholder=" Create a password" Required><br>
+                <label for=""><span class="fa fa-key"></span> Confirm password</label>
+                <input type="password" name="pass2" id="pass2" placeholder=" Confirm password" Required><br>
+            </div>
+            <div class="container_buttons">
+                <button onclick="history.back()" ><span class="fa fa-long-arrow-left"></span> Back </button>
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+    </div>
+    <!-- Formular de autentificare -->
+    
+</body>
+</html>

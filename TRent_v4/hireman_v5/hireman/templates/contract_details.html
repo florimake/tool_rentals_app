@@ -1,0 +1,136 @@
+{% extends "main.html" %}
+{% load static %}
+{% block contract_details %}
+
+
+<div class="contract_details" >
+    <h1 style='color:{{produs.status_color}}'> Detalii despre CONTRACT</h1>
+    <h3 style="padding-left:25px; color:maro">Contract nr. {{nr_contract}} din data {{data}}</h3>
+
+   
+    <div class="termeni_contract" style="padding:50px 100px; text-align: left">
+        <h3>Art.1. PĂRŢILE CONTRACTANTE:</h3> 
+        <h4>Prezentul contract se încheie între:</h4>
+        <span>
+            &emsp; Firma <b>{{srl}}</b> cu sediul social în <b>{{srl.adresa}}</b>, înregistrată la Registrul Comerţului sub <b>RO {{srl.cui}}</b>, 
+            având cont bancar <b>{{srl.banca}}</b> cont <b>{{srl.cont}}</b>, reprezentant legal, <b>{{srl.director}}</b>, în calitate de Administrator, denumit în continuare  <b>PRESTATOR</b>. 
+        </span>
+        <h3>Şi</h3>
+        <span id="client_details">
+            &emsp;Societatea comercială/Persoana fizică <b>{{nume}}</b> având CNP/CUI <b>{{cnp}},</b> adresa <b>{{adresa}}</b>,
+            telefon <b>{{telefon}}</b>, mail <b>{{mail}}</b>, numit în continuare <b>BENEFICIAR</b>. 
+        </span>
+        <br><br>
+        <h4>TERMENI CONTRACTUALI .... <span style="font-style:unset; text-decoration: none"><a href="termeni_contract">Citeste mai mult</a></span></h4>
+        
+        {% comment %} 
+        <b>Închiriere scule şi utilaje pentru construcţii.</b><br>
+        <b>Obiectul contractului îl reprezintă următoarele scule şi utilaje.</b>
+        {% endcomment %}
+        
+        <div class="tabel_anexa">
+            <div class="tabel_anexa_st">
+                <h3>Anexa nr. 1</h3>
+                <table>
+                    <tr>
+                        <th>Denumire produs</th>
+                        <th>{{produs.nume}}</th>
+                    </tr>
+                    <tr>
+                        <th>Cod produs</th>
+                        <th>{{produs.cod_produs}}</th>
+                    </tr>
+                    <tr>
+                        <th>Data de predare</th>
+                        <th>{{data_start}}</th>
+                    </tr>
+                    <tr>
+                        <th>Zile inchiriate</th>
+                        <th>{{zile}} zile</th>
+                    </tr>
+                    {% comment %} <tr>
+                        <th>Data de recuperare</th>
+                        <th>{{data_end}}</th>
+                    </tr> {% endcomment %}
+                    <tr>
+                        <th>Pret inchiriere</th>
+                        <th>{{pret}} Ron</th>
+                    </tr>
+                    <tr>
+                        <th>Garantie produs</th>
+                        <th>{{produs.garantie}} Ron</th>
+                    </tr>
+                    <tr>
+                        <th>Adresa de livrare</th>
+                        <th>{{adresa_livrare}}</th>
+                    </tr>
+                    <tr style="color:green; font-size:large; padding:20px">
+                        <th style="padding:10px">TOTAL de plata</th>
+                        <th> {{total_plata}} Ron</th>
+                    </tr>
+                </table>
+                <form action="../../details/" method="post" style="width: 100%">
+                    {% csrf_token %}
+                    <h4>
+                        <label for="factura">Platesc cu cardul</label>
+                        <input type="checkbox" name="factura" id="factura" value="cash" onclick="plataCard()">
+                    </h4>
+                    <div id="plata_card" style="display:none; color:blue; width:50%; flex-direction:column;">
+                        <p id="banca" >Introduceti datele cardului: </p>
+                        <div>
+                            <label for="">Banca: </label><br><input type="text" name="banca">
+                        </div>
+                        <div>
+                            <label for="">Contul: </label><br><input type="text" name="contul">
+                        </div>
+                    </div><br><br>
+                    <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
+                    <button type="submit" value="{{nr_contract}}" name="contract-nr" style='width:150px; height:30px'>Salveaza contract</button>
+                </form>
+            </div>
+            <div class="tabel_anexa_dr">
+                <img src="/{{produs.poza}}" hight="250px" width="250px" alt="Poza produs">
+            </div>
+        </div>
+
+    </div>
+{% comment %} 
+    <div id="contract_buttons">
+        <button onclick="history.back()">Modifica</button> &emsp;&emsp;&emsp;&emsp;
+        <form action="../../details">
+            <button type="submit" value="{{nr_contract}}" name="contract-nr" style='width:150px; height:30px'>Salveaza contract</button>
+        </form>
+    </div>
+     {% endcomment %}
+    
+    {% comment %} {{forms}}
+    {% for form in forms %}
+        <p>{{form}}</p>    
+    {% endfor %}
+    <br><br><br>
+        <div>
+            <a href=" ">
+                <button type="submit"  style='width:150px; height:30px'>Mai departe</button>
+            </a>
+        </div> {% endcomment %}
+    
+</div>
+    
+    {% comment %} <br><br>
+    <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
+
+<script>
+    function plataCard() {
+        var checkBox = document.getElementById("factura");
+        var div = document.getElementById("plata_card");
+        if (checkBox.checked == true){
+            div.style.display = "flex";
+        } else {
+            div.style.display = "none";
+        }
+    }
+</script>
+
+
+{% endblock contract_details %}
+

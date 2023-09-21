@@ -1,0 +1,88 @@
+
+.product_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.product_details .titlu{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    color: rgb(7, 28, 36);
+    background-color: var(--h-background-color);
+    height: 60px;
+    width: 100%;
+    border-bottom: 2px solid rgba(149, 149, 149, 0.581);
+
+}
+
+.caracteristici{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+.stanga{
+    width: 45%;
+}
+.st_1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+.st_1 img{
+    width: 250px;
+}
+.st_2{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-around;
+    padding:0 50px;
+    width: 90%;
+}
+
+.product_details .dreapta{
+    width: 40%;
+}
+
+.pd_buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: space-between;
+    padding:20px 50px;
+}
+
+.st_2 table th, 
+#produs_stanga_table{
+    border: 1px solid black;
+    align-items: center;
+    /* table-layout: fixed; */
+    padding: 5px;
+    background: rgba(77, 100, 131, 0.13);
+    color: #030303;
+    font-size: medium;
+    text-decoration: none;
+}
+
+.pd_buttons button{
+    border-radius: 5px;
+    transition: 200ms;
+    border: 1px solid rgba(128, 128, 128, 0.574);
+    border-radius: 5px;
+    box-shadow: 0 1px 1px black;
+}
+
+.pd_buttons button:hover {
+    transform: scale(1.1);
+    box-shadow: var(--b-box-shadow);
+    background-color: var(--b-background-color);
+    color: azure;
+}

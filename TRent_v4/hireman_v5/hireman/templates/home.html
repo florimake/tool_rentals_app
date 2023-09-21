@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block home %}
+    <div class="home_body">
+        <div id="home">
+            <h2>Home ...</h2>
+    
+        <ul>Todo home site_list:
+            <br><br>
+            <li>grafic pe ultima saptamana:
+                <ol>nr contracte incheiate</ol>
+                <ol>total incasari</ol>
+                <ol>total cheltuieli reparatii</ol>
+                <ol>profit luna curenta</ol>
+            </li>
+            <li>Echipamente inchiriate, pana la ce data</li>
+        </ul>
+    
+        <br><br>
+        <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px">
+    
+        </div>
+    </div>
+{% endblock home %}

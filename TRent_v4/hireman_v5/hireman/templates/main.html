@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/details.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/products.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/category.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/product_details.css'%}" />
+    
+    <title>Hireman</title>
+
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        
+        <div class="header_message">
+                <div id="logo">
+                    <div class="logo1">    
+                        <a href="../../home/">
+                            <img src='{% static "img/flo2.png" %}' alt="" sizes="" srcset="" hight='100px'>
+                        </a>
+                    </div>
+                    <div class="srl_mess">
+                        <a href="../../home/">
+                            {{srl}}
+                        </a>
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                <p>{{message}}</p>
+                            </div>
+                        {% endfor %}
+                      
+                            <div id="clock">
+                                {% comment %} <h2><span id="live_time"></span></h2> {% endcomment %}
+                                <p><span id='data'></span>
+                                    {% comment %} <span>Ora </span><span id="time"></span> {% endcomment %}
+                                </p>
+                            </div>
+                  
+                    </div>
+                </div>     
+        </div>
+        
+        
+        {% if user.is_authenticated %}
+        <div id="header_buttons" class="header_buttons">
+            {% for b in butoane %}
+                <a id="button_header" href= /{{b}}>
+                    {{b}}
+                </a>
+            {% endfor %}
+            
+        </div>
+        {% else %}
+        <div id="header_buttons" class="header_buttons">
+            <p  style="color:red">Esti delogat !!!</p>
+        </div>
+        {% endif %}
+
+        <div class="header_user">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <div class="user_info" >
+                        {% comment %} <img src="{% static 'icons/profile_user.svg' %}" alt=" "> {% endcomment %}
+                        
+                        <h4> <span class="fa fa-user-circle" style="color:green"></span> {{user}}</h4>
+                        <a class="cart" href="../../admin">
+                            <span id="button_header" class="fa fa-database"> DB</span>
+                        </a>
+                        
+                        {% comment %} <button class="fa fa-opencart" > cart</button> {% endcomment %}
+                        {% comment %} 
+                        <a id="button_header" class="cart" href="">
+                            <span class="fa fa-opencart"> cart</span>
+                        </a>  
+                        {% endcomment %}
+                        <a id="button_header" href="../../authentication/signout">Sign out</a>
+                    </div>
+                {% else %}
+                    <div class="user_info" >
+                        {% comment %} <img src="{% static 'icons/profile_user.svg' %}" alt=" "> {% endcomment %}
+                        <h4> <span class="fa fa-user-circle" style="color:green"></span> {{user}}</h4>
+                        <a  class="cart" href="../../admin">
+                            <span id="button_header" class="fa fa-opencart"> cart</span>
+                        </a>
+                        {% comment %} <form id="logout-form" method="post" action="/admin/logout/">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="">
+                            <button type="submit">Log out</button>
+                        </form> {% endcomment %}
+                        <a id="button_header" href="../../authentication/signout">Sign out</a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="user_info">
+                    {% comment %} <img src="{% static 'icons/profile_user.svg' %}" alt=" "> {% endcomment %}
+                    {% comment %} <h4><span class="fa fa-user-circle" style="color:red"></span> Delogat</h4> {% endcomment %}
+                    <a id="button_header" href="../../authentication/signup">Signup</a>
+                    <a id="button_header" href="../../authentication/signin">Signin</a>
+                </div>
+            {% endif %}
+        </div>
+    </header>
+            
+    <div class="container_top">
+        <div class="most_popular">
+            {% for produs in produse_populare %}
+                <ul class="most_popular_prod">
+                    {% for p in produs %}
+                        <a href="../../most-popular/{{p.slug}}">
+                            {% if p > 1 %}
+                                <p>{{p}} persoane au inchiriat</p>
+                            {% else %}
+                                <img src="/{{p.poza}}" alt="">
+                                {% comment %} <p>{{p|safe}}</p> {% endcomment %}
+                            {% endif %}
+                        </a>    
+                    {% endfor %}
+                </ul>   
+            {% endfor %}
+        </div>
+    </div>
+
+   
+    <div class="container_center">
+        <div>{% block signup %}    
+            {% endblock signup %}</div>
+
+        <div>{% block signin %}    
+            {% endblock signin %}</div>
+    
+        <div>{% block home %}    
+            {% endblock home %}</div>
+
+    {% if user.is_authenticated %}
+        <div>{% block products %}    
+            {% endblock products %}</div>
+
+        <div>{% block products_category %}    
+            {% endblock products_category %}</div>
+
+        <div>{% block category %}
+            {% endblock category %}</div>
+
+        <div>{% block product_details %}    
+            {% endblock product_details %}</div>
+
+        <div>{% block client_details %}    
+            {% endblock client_details %}</div>
+            
+        <div>{% block service_details %}    
+            {% endblock service_details %}</div>
+
+        <div>{% block contract_details %}    
+            {% endblock contract_details %}</div>
+
+        <div>{% block termeni_contract %}    
+            {% endblock termeni_contract %}</div>
+
+        <div>{% block db_contracte %}    
+            {% endblock db_contracte %}</div>
+
+        <div>{% block contract_preview %}    
+            {% endblock contract_preview %}</div>
+    </div>
+    {% else %}
+        {% comment %} <p style="color:red; padding-bottom:20px">Nu esti autentificat, trebuie sa te loghezi sau sa-ti creiezi un cont !</p> {% endcomment %}
+    {% endif %}
+    <div class="container_bottom"> 
+        <div class="container_contract">
+            <h3>Ultimul contract incheiat: </h3>
+            <br>
+            {% for contract in contracte_info %}
+                <li>Client: {{contract.nume_client}} - <br>
+                    <span>Contract nr. {{contract.pk}} din {{contract.data}} - </span><br>
+                    <span>data start {{contract.data_start}} - </span><br>
+                    <span>data end {{contract.data_end}}</span>
+                </li>          
+                <br>
+            {% endfor %}
+            {% comment %} <li>{{contracte_info}}</li> {% endcomment %}
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    <div class="logo_bootom">
+        <img src='{% static "img/logo_flo.png" %}' alt="" sizes="" srcset="" width='200px'>
+        <img src='{% static "img/images_2.png" %}' alt="" sizes="" srcset="" hight='100px'>
+        <img src='{% static "img/logo_flo_2.png" %}' alt="" sizes="" srcset="" width='200px'>
+        <img src='{% static "img/logo_3.png" %}' alt="" sizes="" srcset="" hight='100px'>
+        <img src='{% static "img/logo_flo_2_R.png" %}' alt="" sizes="" srcset="" width='200px'>
+        <div class="socializare">
+                
+            <a href="https://www.facebook.com/">
+                <button id="button_header" type="submit" class="fa fa-facebook"></button>
+            </a>
+            <a href="https://www.youtube.com/watch?v=UWjWFLeX90Q">
+                <button id="button_header" type="submit" class="fa fa-youtube"></button>
+            </a>
+            <a href="https://twitter.com/">
+                <button id="button_header" type="submit" class="fa fa-twitter"></button>
+            </a>
+            <a href="https://www.linkedin.com/?original_referer=">
+                <button id="button_header" type="submit" class="fa fa-linkedin"></button>
+            </a>
+            <a href="https://www.reddit.com/?rdt=57074">
+                <button id="button_header" type="submit" class="fa fa-reddit"></button>
+            </a>
+        </div>
+    </div>
+
+    <script src="{% static 'script/main.js'%}"></script>
+</body>
+
+</html>

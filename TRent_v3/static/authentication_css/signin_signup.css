@@ -88,3 +88,8 @@ button:hover{
 .form_box input{
     padding: 5px;
 }
+
+.message_alert{
+    background-color: rgba(0, 0, 0, 0.403);
+    color: white;
+}

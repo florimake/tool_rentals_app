@@ -134,7 +134,7 @@ STATICFILES_DIR = [
 # typically, os.path.join(os.path.dirname(__file__), 'media')
 
 MEDIA_ROOT = ''
-MEDIA_URL = '/static/icons'
+MEDIA_URL = '/static/icons/'
 
 # if Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/details/ (note the trailing slash)
 # APPEND_SLASH=False
