@@ -5,26 +5,20 @@
 <div class="client_details">
     <h1>Service details  ...</h1>
     
-    <br>
     <div class="detalii_produs">
         <table>
-            
             <th style=' font-size: large; margin: 15px; width:250px'>
                 <h4>{{produs}}</h4>
                 <h4 >Status produs: </h4>
                 <h4 style='color:{{produs.status_color}}; border: 1px solid {{produs.status_color}}'>{{produs.status}}</h4> 
             </th>
             <th>
-                
                 <img src="/{{produs.poza}}" hight="300px" width="300px" alt="Poza produs">
             </th>
         </table>
     </div>
         
-    <br>
-
     <div class="formular_client">
-        <button onclick="history.back()">inapoi</button>
         <h4>Introdu datele servisului in formularul de mai jos:</h4>
 
         <form action="../../products/" method="post">
@@ -60,17 +54,13 @@
                     <th><input type="number" name="cost"></th>
                 </tr>
             </table>
-            <br><br>
-            <input style="width:120px" class="button_service" type="submit" value="Salveaza status">
-            <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
+            <div>
+                <button id="header_buttons" type="button" onclick="history.back()">inapoi</button>
+                <input id="header_buttons" style="width:120px" class="button_service" type="submit" value="Salveaza status">
+                <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
+            </div>
         </form>
-        <br><br>
-        
-        
-        <br><br>
     </div>
-    
-
     
 </div>
 

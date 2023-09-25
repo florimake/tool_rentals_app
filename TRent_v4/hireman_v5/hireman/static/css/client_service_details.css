@@ -1,0 +1,98 @@
+.client_details,
+.detalii_produs{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+}
+.client_top{
+    width: 100%;
+    background-color: var(--h-background-color);
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+.client_top h1{
+    font-size: xx-large;
+}
+
+.client_center{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.detalii_produs{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+.detalii_produs h4{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    margin-top: 10px;
+}
+.detalii_produs h4:first-child{
+    font-size: large;
+    color: var(--b-background-color);
+    width: 100%;
+}
+.detalii_produs img{
+    width: 300px;
+    padding-bottom: 10%;
+}
+.formular_client{
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.445);
+    width: 50%;
+    padding: 40px 0;
+    margin: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.formular_client h4{
+    font-size: x-large;
+    color: var(--b-background-color);
+}
+.formular_client form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.formular_client table{
+    padding: 5%;
+}
+.formular_client table th{
+    font-size: medium;
+    color: rgb(0, 34, 0);
+}
+.formular_client table td{
+    width: 200px;
+    text-align: right;
+    padding:2px 5px;
+}
+.formular_client table th:first-child{
+    width: 300px;
+    text-align: right;
+    font-size: large;
+}
+.formular_client table input{
+    width: 99%;
+}

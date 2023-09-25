@@ -37,8 +37,8 @@ last_contract_info = []
 
 def contract_info(cont=0):
     global last_contract_info
-    c = [contract for contract in Contract.objects.all()][::-1]
-    last_contract_info = [c[cont]]
+    contracte = [contract for contract in Contract.objects.all()][::-1]
+    last_contract_info = [contracte[cont]]
 contract_info()
 
     
@@ -409,6 +409,7 @@ def view_details(request):
             last_contract = {}
             contract_info()
     add_first_to_second_dict(CONTEXT_GLOBAL,context)
+    contract_info()
     return render(request, "details.html", context)
 ############################################################## DETAILS ################################################################
 

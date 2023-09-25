@@ -28,8 +28,8 @@ header,
 .container_center,
 .container_left,
 .container_right{
+    top: 20px;
     width: 100%;
-    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -65,13 +65,14 @@ header{
 .srl_mess a{
     position: absolute;
     top: 0px;
+    left: 120px;
     font-size: xxx-large;
     text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.423);
 }
 .srl_mess #clock #data{
     position: absolute;
     top: 5px;
-    left: 47%;
+    right: 2%;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.557);
     color: rgb(0, 0, 0);
 }
