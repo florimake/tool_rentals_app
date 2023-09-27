@@ -2,66 +2,67 @@
 {% load static %}
 {% block service_details %}
     
-<div class="client_details">
-    <h1>Service details  ...</h1>
-    
-    <div class="detalii_produs">
-        <table>
-            <th style=' font-size: large; margin: 15px; width:250px'>
-                <h4>{{produs}}</h4>
-                <h4 >Status produs: </h4>
-                <h4 style='color:{{produs.status_color}}; border: 1px solid {{produs.status_color}}'>{{produs.status}}</h4> 
-            </th>
-            <th>
-                <img src="/{{produs.poza}}" hight="300px" width="300px" alt="Poza produs">
-            </th>
-        </table>
-    </div>
-        
-    <div class="formular_client">
-        <h4>Introdu datele servisului in formularul de mai jos:</h4>
 
-        <form action="../../products/" method="post">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <th>Denumire produs</th>
-                    <th>{{produs}} (COD:{{produs.cod_produs}})</th>
-                </tr>
-                <tr>
-                    <th>Numele servisului</th>
-                    <th><input type="text" name="nume_service"></th>
-                </tr>
-                <tr>
-                    <th>Telefon /mobil</th>
-                    <th><input type="tel" name="tel"></th>
-                </tr>
-                <tr>
-                    <th>Mail</th>
-                    <th><input type="email" name="mail"></th>
-                </tr>
-                <tr>
-                    <th>Incepand cu data</th>
-                    <th><input type="date" name="data_start" value="{{time_date}}"></th>
-                </tr>
-                <tr>
-                    <th>Pana la data cu data</th>
-                    <th><input type="date" name="data_end" value="{{time_date}}"></th>
-                </tr>
-                
-                <tr>
-                    <th>Estimare cost reparatie</th>
-                    <th><input type="number" name="cost"></th>
-                </tr>
-            </table>
-            <div>
-                <button id="header_buttons" type="button" onclick="history.back()">inapoi</button>
-                <input id="header_buttons" style="width:120px" class="button_service" type="submit" value="Salveaza status">
-                <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
-            </div>
-        </form>
+<div class="client_details">
+    <div class="service_top">
+        <h1>Service details  ...</h1>
+        <h4>Introdu datele servisului in formularul de mai jos:</h4>
     </div>
-    
+    <div class="service_body">
+        <div class="detalii_produs">
+            <table>
+                <th style=' font-size: large; margin: 15px; width:250px'>
+                    <h4>{{produs}}</h4>
+                    <h4 >Status produs: </h4>
+                    <h4 style='color:{{produs.status_color}}; border: 1px solid {{produs.status_color}}'>{{produs.status}}</h4> 
+                </th>
+                <th>
+                    <img src="/{{produs.poza}}" hight="300px" width="300px" alt="Poza produs">
+                </th>
+            </table>
+        </div>
+        <div class="formular_client">
+            <form action="../../products/" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>Denumire produs</th>
+                        <th>{{produs}} (COD:{{produs.cod_produs}})</th>
+                    </tr>
+                    <tr>
+                        <td>Numele servisului</td>
+                        <td><input type="text" name="nume_service"></td>
+                    </tr>
+                    <tr>
+                        <td>Telefon /mobil</td>
+                        <td><input type="tel" name="tel"></td>
+                    </tr>
+                    <tr>
+                        <td>Mail</td>
+                        <td><input type="email" name="mail"></td>
+                    </tr>
+                    <tr>
+                        <td>Incepand cu data</td>
+                        <td><input type="date" name="data_start" value="{{time_date}}"></td>
+                    </tr>
+                    <tr>
+                        <td>Pana la data cu data</td>
+                        <td><input type="date" name="data_end" value="{{time_date}}"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Estimare cost reparatie</td>
+                        <td><input type="number" name="cost"></td>
+                    </tr>
+                </table>
+                <div>
+                    <button id="button_header" type="button" onclick="history.back()">inapoi</button>
+                    <input id="button_header" style="width:120px" class="button_service" type="submit" value="Salveaza">
+                    <span style="padding-left:25px; color:maro">Astazi {{day_now}}.{{month_now}}.{{year_now}}</span>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock service_details %}

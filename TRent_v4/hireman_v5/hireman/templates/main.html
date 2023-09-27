@@ -54,7 +54,7 @@
 
         {% else %}
         <div id="header_buttons" class="header_buttons">
-            <p  style="color:red">Esti delogat !!!</p>
+            <p  style="color:red">Trebuie sa te inscrii sau inregistrezi !!!</p>
         </div>
         
         {% endif %}
@@ -150,9 +150,9 @@
 
         <div>{% block db_contracte %}    
             {% endblock db_contracte %}</div>
-
+{% comment %} 
         <div>{% block contract_preview %}    
-            {% endblock contract_preview %}</div>
+            {% endblock contract_preview %}</div> {% endcomment %}
     </div>
     {% else %}
         {% comment %} <p style="color:red; padding-bottom:20px">Nu esti autentificat, trebuie sa te loghezi sau sa-ti creiezi un cont !</p> {% endcomment %}

@@ -6,6 +6,16 @@
     align-items: center;
     margin: 0px;
     padding: 0px;
+    width: 100%;
+}
+.service_body{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    padding: 0px;
+    width: 100%;
 }
 .client_top{
     width: 100%;
@@ -95,4 +105,10 @@
 }
 .formular_client table input{
     width: 99%;
+}
+
+.formular_client table th{
+    padding-right: 20px;
+    padding-bottom: 10px;
+    width: 250px;
 }

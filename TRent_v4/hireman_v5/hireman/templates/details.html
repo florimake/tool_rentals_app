@@ -2,13 +2,13 @@
 {% load static %}
 {% block product_details %}
     
-<div class="container_detail">
+<div class="container_details_2">
     <h3 style='color: green'>{{mesaj}}</h3>
     <div class="product_details">
         <div class="stanga">
             <h2>Informatii utile ...</h2>
             <p>
-                <b>Informatii despre Societate:</b><br><br>
+                <b>Informatii despre Societate:</b><br>
                 &emsp; Firma <b>{{srl}}</b> cu sediul social în <b>{{srl.adresa}}</b>, înregistrată la Registrul Comerţului sub <b>RO {{srl.cui}}</b>, 
                 având cont bancar <b>{{srl.banca}}</b> cont <b>{{srl.cont}}</b>, reprezentant legal, <b>{{srl.director}}</b>, în calitate de Administrator, denumit în continuare  <b>PRESTATOR</b>. 
             </p>
@@ -18,7 +18,7 @@
                     <th colspan= 6>
                         <h2>Ultimele 15 contracte incheiate</h2>
                         <a href="../contracte">
-                            <button>Vezi toate contractele</button>
+                            <button id="button_header"> Istoric toate contractele</button>
                         </a>
                     </th>
                 </tr>
@@ -65,7 +65,7 @@
                     <th colspan= 3>
                         <h3> Cele mai inchiriate 10 produse</h3>
                         <a href="../admin/hireman/produs/">
-                            <button>Vezi in baza de date</button>
+                            <button id="button_header"> Vezi in baza de date</button>
                         </a>
                     </th>
                 </tr>
@@ -94,10 +94,6 @@
             </div id= "details_table">
         </div>
     </div>
-    {% comment %} <img src={% static "img/maintenance2.png"%} alt="" hight="400px" width="400px"> {% endcomment %}
 </div>
 
 {% endblock product_details %}
-{% comment %} 
-                        
-{% endcomment %}

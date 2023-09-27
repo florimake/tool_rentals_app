@@ -8,8 +8,9 @@ from datetime import datetime as dt
 from datetime import timedelta
 from pprint import pprint
 from django.contrib.auth import authenticate, login, logout
-
-
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+import pdfkit
 
 
 # Create your views here.
@@ -638,7 +639,7 @@ def view_db_contracte(request):
 
 ######################################################### CONTRACT PREVIEW ############################################################
 def view_contract_preview(request, pk):
-    print(f" - Open view_contract_preview() => succes") 
+    # print(f" - Open view_contract_preview() => succes") 
     if pk != None:
         contract = get_object_or_404(Contract, pk=pk)
         context = {
@@ -665,3 +666,20 @@ def signout(request):
     return redirect("")
 
 ######################################################### SINGOUT ############################################################
+
+######################################################### CONTRACT save_PDF ############################################################
+
+# def save_pdf(request, pk):
+#     contract = get_object_or_404(Contract, pk=pk)
+#     print(contract)
+#     x = view_contract_preview(request, pk)
+#     print(x)
+#     with open('test_pdf.html', "w") as p:
+#         p.write(str(x.content))
+#         print(p)
+#         p.close()
+#     # pdfkit.from_file('test_pdf.html', f'test_pdf_{contract}.pdf')
+#     return redirect("/contracte")
+
+
+######################################################### CONTRACT save_PDF ############################################################

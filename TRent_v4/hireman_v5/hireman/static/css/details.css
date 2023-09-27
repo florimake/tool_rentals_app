@@ -1,10 +1,54 @@
-.container_details {
+.container_detail {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
+.product_details{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.db_contracte{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.db_contracte{
+    font-size: x-large;
+    padding: 15px 0;
+}
+.db_contracte h1{
+    font-size: x-large;
+}
 
-
-
+.db_top{
+    width: 100%;
+    background-color: var(--h-background-color);
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+.db_contracte table th{
+    padding:15px 20px;
+}
+.db_contracte table td{
+    padding: 5px 10px;
+    border-bottom: 1px solid grey;
+    align-items: center;
+}
+.db_contracte table button{
+    padding: 3px 15px;
+    border: 1px solid grey;
+    font-size: large;
+    margin: 10px 0;
+}

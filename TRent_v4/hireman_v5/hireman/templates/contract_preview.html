@@ -1,14 +1,17 @@
-
-{% extends "main.html" %}
 {% load static %}
-{% block contract_preview %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/contract_preview.css'%}" />
+    <title></title>
+   
+</head>
+<body>
     
     <div class="contract_preview">
-        <h2>Contract preview</h2>
-    
-        
-        <div class="termeni_contract_details" style="padding:50px; text-align: center">
-            <button onclick="history.back()" class="fa fa-long-arrow-left"> </button>
+        <div class="termeni_contract_details">
             <br><br>
             <h1 style="padding-left:25px; color:maro">Contract nr. {{contract.pk}} din data {{contract.data}}</h1>
             <br><br>
@@ -120,28 +123,31 @@
                         flex-direction: row;
                         justify-content: space-between;
                         padding-top: 20px; 
+                        width: 100%;
                         ">
-                <h2>PRESTATOR</h2>
-                <h2>BENEFICIAR</h2> 
+                <h4>PRESTATOR</h4>
+                <h4>BENEFICIAR</h4> 
             </div>
             <div style="display: flex;
                         flex-direction: row;
                         justify-content: space-between;
                         align-items: center;
-                        padding-bottom: 20px;
-                        width: 80%;
+                        padding-bottom: 50px;
+                        width: 100%;
                         ">
                 <h4>{{srl}}</h4>
                 <h4>{{contract.nume_client}}</h4> 
             </div>
-            <h4>Anexa nr.1</h4>
-            <h4>la contractul nr.{{contract.pk}} din data de {{contract.data_start}}</h4>
+            <h3 style="
+                text-align: center;
+                padding: 20px 0;
+                ">Anexa nr.1 <br> la contractul nr.{{contract.pk}} din data de {{contract.data_start}}</h3>
             <div>
-               <p>
+            <p>
                 Închiriere scule şi utilaje pentru construcţii. <br>
                 Obiectul contractului îl reprezintă următoarele scule şi utilaje. <br>
                 Scule şi utilaje care sunt prezente la anexei, au fost oferite conform cerintei prevăzute
-               </p>
+            </p>
             </div>
             <div>
                 <table style="width:100%;">
@@ -174,23 +180,24 @@
                 </table>
             </div>
             <div>
+                <br>
                 <p>Închirierea sculelor/utilajelor prezentate în tabelul de mai sus se închiriază începând cu data de <b>{{contract.data_start}}</b> 
                     până la data de <b>{{contract.data_end}}</b> reprezentând un nr de <b>{{contract.nr_zile}}</b> zile şi se retunează Prestatatorului prin: 
                 </p>
+                <br>
                 <ul style="list-style: none;">
                     <li>
                         <input type="checkbox" name="" id="" value="" onclick="" checked>
                         Livrare asigurată de către Prestator la cererea Beneficiarului la adresa menţionată în anexă
                     </li>
-                    <br>
                     <li>
                         <input type="checkbox" name="" id="" value="" onclick="">
-                        Colectare şi returnare la depozitul Prestatorului de către Beneficiar la urmatoarea adresă: <br>
-                        <ol><b>{{contract.adresa_srl}}</b></ol>
+                        Colectare şi returnare la depozitul Prestatorului de către Beneficiar la urmatoarea adresă: <b>{{contract.adresa_srl}}</b>
                     </li>
                 </ul>
             </div>
             <div>
+                <br><br>
                 <p>
                     Redactat în două exemplare, câte unul pentru fiecare parte contractantă. 
                 </p>
@@ -198,7 +205,8 @@
             <div style="display: flex;
                         flex-direction: row;
                         justify-content: space-between;
-                        padding-top: 20px; 
+                        padding: 20px 0;
+                        margin-top: 50px; 
                         ">
                 <h2>PRESTATOR</h2>
                 <h2>BENEFICIAR</h2> 
@@ -208,17 +216,15 @@
                         justify-content: space-between;
                         align-items: center;
                         padding-bottom: 20px;
-                        width: 80%;
                         ">
                 <h4>{{srl}}</h4>
                 <h4>{{contract.nume_client}}</h4> 
             </div>
 
-            <br><br>
-            <button onclick="history.back()" class="fa fa-long-arrow-left"> </button>
             
         </div>
         
     </div>
-    
-{% endblock contract_preview %}
+
+</body>
+</html>

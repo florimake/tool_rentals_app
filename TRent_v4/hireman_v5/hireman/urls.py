@@ -24,7 +24,7 @@ urlpatterns = [
     path("category/", view_category),
     path("products/", view_products, name="products"),
     path("details/", view_details, name="details"),
-    path("home/", view_home, name="home"),
+    path("home/", view_category, name="home"),
     path("products/<slug>/", view_product_details),
     path("most-popular/<slug>/", view_product_details),
     path("category/<slug>", view_products_category),
@@ -38,5 +38,6 @@ urlpatterns = [
     path("static/hireman/static/media/category/<poza>", view_imagine, name="view_imagine"),
     path("contracte/", view_db_contracte, name="db_contracte"),
     path("contracte/<pk>", view_contract_preview, name="contract_preview"),
+    # path("contracte/pdf/<pk>", save_pdf, name="save_pdf"),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
 ]

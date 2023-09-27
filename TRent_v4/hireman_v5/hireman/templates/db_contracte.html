@@ -4,9 +4,12 @@
 {% block db_contracte %}
     
     <div class="db_contracte">
-        <h1>Database Contracte</h1>
-        <button onclick="history.back()" class="fa fa-long-arrow-left"></button>
-        <h3>Mai jos sunt afisate toate contractele incheiate </h3>
+        <div class="db_top">
+            <button id="button_header" onclick="history.back()" class="fa fa-long-arrow-left"> datails</button>
+            <h1>Database Contracte: </h1>
+            <h3>Mai jos sunt afisate toate contractele incheiate </h3>
+        </div>
+        
         <table >
             <tr>
                 <th>Contract</th>
@@ -16,7 +19,7 @@
                 <th>Produs</th>
                 <th>Cost</th>
                 <th>Vizualizare</th>
-                <th>Printeaza</th>
+                <th>Salveaza PDF</th>
             </tr>
             {% for contract in contracte %}
                 {% if contract.data_end <= data %}
@@ -32,12 +35,14 @@
                         {% endfor %}</td>
                     <td>{{contract.cost}} Ron</td>
                     <td>
-                        <a href="../contracte/{{contract.pk}}">
-                            <button type="submit"><i class="fa fa-eye"></i></button>
+                        <a href="../contracte/{{contract.pk}}" target="_blank">
+                            <button id="button_header" type="button" ><i class="fa fa-eye"></i></button>
                         </a>
                     </td>
                     <td>
-                        <button type="submit"><i class="fa fa-print"></i></button>
+                        <a href="#">
+                            <button id="button_header" type="submit"><i class="fa fa-print"></i></button>
+                        </a>
                     </td>
                 </tr>
                 {% else %}
@@ -55,12 +60,14 @@
                     </td>
                     <td>{{contract.cost}} Ron</td>
                     <td>
-                        <a href="../contracte/{{contract.pk}}">
-                            <button type="submit"><i class="fa fa-eye"></i></button>
+                        <a href="../contracte/{{contract.pk}}" target="_blank">
+                            <button id="button_header" type="button" ><i class="fa fa-eye"></i></button>
                         </a>
                     </td>
                     <td>
-                        <button type="submit"><i class="fa fa-print"></i></button>
+                        <a href="#">
+                            <button id="button_header" type="submit"><i class="fa fa-print"></i></button>
+                        </a>
                     </td>
                 </tr>
                 {% endif %}
