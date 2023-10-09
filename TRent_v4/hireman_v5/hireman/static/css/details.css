@@ -1,16 +1,15 @@
-.container_detail {
+.container_details {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    background-color: aqua;
 }
 .product_details{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
 .db_contracte{
     display: flex;

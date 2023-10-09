@@ -1,10 +1,17 @@
-
-.product_details {
+.container_details {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
+.stanga, .dreapta{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 45%;
+}
+
 .product_details .titlu{
     display: flex;
     flex-direction: row;
@@ -86,3 +93,4 @@
     background-color: var(--b-background-color);
     color: azure;
 }
+

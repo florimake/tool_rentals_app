@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="7WgamaiNUXF7mhqLMfml" name="Page-1">
-        <mxGraphModel dx="2246" dy="699" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+        <mxGraphModel dx="2638" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -213,13 +213,13 @@
                     <mxGeometry y="234" width="182" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="26" value="adaugare&lt;br&gt;client" style="shape=step;perimeter=stepPerimeter;fixedSize=1;points=[];whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="460" y="1010" width="100" height="57" as="geometry"/>
+                    <mxGeometry x="330" y="850" width="100" height="57" as="geometry"/>
                 </mxCell>
                 <mxCell id="27" value="creere&lt;br&gt;factura" style="shape=step;perimeter=stepPerimeter;fixedSize=1;points=[];whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="660" y="1010" width="100" height="57" as="geometry"/>
+                    <mxGeometry x="530" y="850" width="100" height="57" as="geometry"/>
                 </mxCell>
                 <mxCell id="28" value="creere&lt;br&gt;contract" style="shape=step;perimeter=stepPerimeter;fixedSize=1;points=[];whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="560" y="1010" width="100" height="57" as="geometry"/>
+                    <mxGeometry x="430" y="850" width="100" height="57" as="geometry"/>
                 </mxCell>
                 <mxCell id="126" value="Reeparatie" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="850" y="39" width="140" height="130" as="geometry"/>
